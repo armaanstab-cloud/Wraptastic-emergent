@@ -39,7 +39,7 @@ export default function Work() {
       <section className="bg-[var(--w-black-950)] py-16 border-t border-white/10">
         <div className="container-w flex flex-col sm:flex-row items-center justify-between gap-6】">
           <div>
-            <h2 className="font-display text-2xl sm:text-3xl text-white">See more on social</h2>
+            <h2 className="font-display text-2xl sm:text-3xl text-chrome">See more on social</h2>
             <p className="mt-2 text-[var(--w-silver-500)]">We post fresh builds regularly. Follow along and message us anytime.</p>
           </div>
           <div className="flex flex-wrap gap-3">

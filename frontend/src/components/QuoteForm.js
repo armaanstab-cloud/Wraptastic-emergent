@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
-import axios from "axios";
-import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, CheckCircle2, Loader2, Upload, ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { MessageCircle, CheckCircle2, Loader2, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -13,11 +12,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { SERVICE_OPTIONS, CONTACT_METHODS, LINKS } from "@/lib/site";
+import { SERVICE_OPTIONS, CONTACT_METHODS, LINKS, BUSINESS } from "@/lib/site";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+// Web3Forms delivers submissions straight to the shop inbox with no backend.
+// The access key is a public alias for that inbox - safe in client-side code.
+// Get a free key at https://web3forms.com and set REACT_APP_WEB3FORMS_KEY.
 const WEB3FORMS_KEY = process.env.REACT_APP_WEB3FORMS_KEY;
+const WHATSAPP_NUMBER = BUSINESS.phoneRaw.replace(/\D/g, "");
 
 const emptyForm = {
   name: "",
@@ -31,88 +32,168 @@ const emptyForm = {
   message: "",
 };
 
+// Builds a WhatsApp link pre-filled with everything the customer typed, so a
+// failed (or unconfigured) email delivery never costs us the lead.
+const whatsappHandoff = (f) => {
+  const vehicle = [f.vehicle_year, f.vehicle_make, f.vehicle_model]
+    .filter(Boolean)
+    .join(" ");
+  const lines = [
+    "Hi Wraptastic, I would like to get a quote for my vehicle.",
+    "",
+    `Name: ${f.name}`,
+    `Phone: ${f.phone}`,
+    `Email: ${f.email}`,
+  ];
+  if (vehicle) lines.push(`Vehicle: ${vehicle}`);
+  if (f.service) lines.push(`Service: ${f.service}`);
+  if (f.message) lines.push("", f.message);
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join("\n"))}`;
+};
+
 const inputClass =
   "bg-white/5 border-white/10 text-white placeholder:text-white/35 focus-visible:ring-2 focus-visible:ring-[rgba(225,6,0,0.55)] focus-visible:ring-offset-0 h-11";
 const labelClass = "text-xs text-white/70 tracking-[0.12em] uppercase mb-1.5 block";
+const errorInputClass =
+  "border-[var(--w-red-accent)]/70 focus-visible:ring-[rgba(225,6,0,0.75)]";
+
+const FieldError = ({ id, children }) =>
+  children ? (
+    <p id={id} role="alert" data-testid={`${id}`} className="mt-1.5 text-xs text-[#FF6B60]">
+      {children}
+    </p>
+  ) : null;
 
 export const QuoteForm = ({ bare = false }) => {
   const [form, setForm] = useState(emptyForm);
+  const [errors, setErrors] = useState({});
+  const [touched, setTouched] = useState({});
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
   const honeypot = useRef("");
-  const fileRef = useRef(null);
-  const [fileName, setFileName] = useState("");
 
-  const update = (key) => (e) =>
-    setForm((f) => ({ ...f, [key]: e?.target ? e.target.value : e }));
+  // Per-field rules. Returns an error string, or "" when the field is fine.
+  const validateField = (key, value) => {
+    const v = (value || "").trim();
+    switch (key) {
+      case "name":
+        if (!v) return "Please enter your name.";
+        if (v.length < 2) return "That name looks too short.";
+        return "";
+      case "phone": {
+        if (!v) return "Please enter your phone number.";
+        const digits = v.replace(/\D/g, "");
+        if (digits.length < 10) return "Enter a full phone number, including area code.";
+        if (digits.length > 15) return "That phone number looks too long.";
+        return "";
+      }
+      case "email":
+        if (!v) return "Please enter your email.";
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) return "Please enter a valid email address.";
+        return "";
+      case "vehicle_year": {
+        if (!v) return "";
+        if (!/^\d{4}$/.test(v)) return "Use a 4-digit year, e.g. 2023.";
+        const year = Number(v);
+        if (year < 1900 || year > new Date().getFullYear() + 2) return "That year does not look right.";
+        return "";
+      }
+      case "message":
+        if (v.length > 4000) return "Please keep this under 4000 characters.";
+        return "";
+      default:
+        return "";
+    }
+  };
 
-  const validate = () => {
-    if (!form.name.trim()) return "Please enter your name.";
-    if (!form.phone.trim()) return "Please enter your phone number.";
-    if (!/^\S+@\S+\.\S+$/.test(form.email)) return "Please enter a valid email.";
-    return null;
+  const validateAll = () => {
+    const next = {};
+    Object.keys(emptyForm).forEach((k) => {
+      const msg = validateField(k, form[k]);
+      if (msg) next[k] = msg;
+    });
+    return next;
+  };
+
+  const update = (key) => (e) => {
+    const value = e?.target ? e.target.value : e;
+    setForm((f) => ({ ...f, [key]: value }));
+    // Only re-validate live once the field has been blurred, so we do not
+    // shout at someone while they are still typing.
+    if (touched[key]) {
+      setErrors((prev) => ({ ...prev, [key]: validateField(key, value) }));
+    }
+  };
+
+  const blur = (key) => () => {
+    setTouched((t) => ({ ...t, [key]: true }));
+    setErrors((prev) => ({ ...prev, [key]: validateField(key, form[key]) }));
+  };
+
+  const fieldProps = (key) => ({
+    onBlur: blur(key),
+    "aria-invalid": Boolean(errors[key]) || undefined,
+    "aria-describedby": errors[key] ? `${key}-error` : undefined,
+  });
+
+  // Hands the customer off to WhatsApp with their details already typed out.
+  const failToWhatsApp = (reason) => {
+    console.error(reason);
+    toast.error("We could not send that. Opening WhatsApp so nothing is lost.");
+    window.open(whatsappHandoff(form), "_blank", "noopener,noreferrer");
   };
 
   const submit = async (e) => {
     e.preventDefault();
     if (busy) return;
-    const err = validate();
-    if (err) {
-      toast.error(err);
+    const found = validateAll();
+    setErrors(found);
+    setTouched(Object.fromEntries(Object.keys(emptyForm).map((k) => [k, true])));
+    const bad = Object.keys(found);
+    if (bad.length) {
+      toast.error(
+        bad.length === 1 ? found[bad[0]] : `Please fix ${bad.length} fields before sending.`
+      );
+      document.querySelector(`[data-testid="quote-${bad[0].replace(/_/g, "-")}"]`)?.focus();
       return;
     }
+
+    // Silently drop bots: the honeypot is invisible to humans.
+    if (honeypot.current) return;
+
+    if (!WEB3FORMS_KEY) {
+      failToWhatsApp("REACT_APP_WEB3FORMS_KEY is not set - falling back to WhatsApp.");
+      return;
+    }
+
     setBusy(true);
-
-    let delivered = false;
-
-    // 1) Store in backend (MongoDB) - always attempt, keeps a reliable record.
     try {
-      await axios.post(`${API}/quotes`, { ...form, company: honeypot.current });
-      delivered = true;
-    } catch (e2) {
-      // non-blocking; we still try email delivery below
-      console.error("backend quote store failed", e2?.message);
-    }
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: "New vehicle quote request - Wraptastic",
+          from_name: "Wraptastic Website",
+          botcheck: "",
+          ...form,
+        }),
+      });
+      const json = await res.json();
+      setBusy(false);
 
-    // 2) Email delivery via Web3Forms (portable, works on Netlify too).
-    if (WEB3FORMS_KEY) {
-      try {
-        const fd = new FormData();
-        fd.append("access_key", WEB3FORMS_KEY);
-        fd.append("subject", "New vehicle quote request - Wraptastic");
-        fd.append("from_name", "Wraptastic Website");
-        fd.append("name", form.name);
-        fd.append("phone", form.phone);
-        fd.append("email", form.email);
-        fd.append("vehicle_make", form.vehicle_make);
-        fd.append("vehicle_model", form.vehicle_model);
-        fd.append("vehicle_year", form.vehicle_year);
-        fd.append("service", form.service);
-        fd.append("preferred_contact_method", form.preferred_contact_method);
-        fd.append("message", form.message);
-        fd.append("botcheck", "");
-        const file = fileRef.current?.files?.[0];
-        if (file) fd.append("attachment", file);
-        const res = await fetch("https://api.web3forms.com/submit", {
-          method: "POST",
-          body: fd,
-        });
-        const json = await res.json();
-        if (json.success) delivered = true;
-      } catch (e3) {
-        console.error("web3forms failed", e3?.message);
+      if (json.success) {
+        setDone(true);
+        toast.success("Request received. We will reach out shortly.");
+        setForm(emptyForm);
+        setErrors({});
+        setTouched({});
+      } else {
+        failToWhatsApp(`web3forms rejected the submission: ${json.message}`);
       }
-    }
-
-    setBusy(false);
-    if (delivered) {
-      setDone(true);
-      toast.success("Request received. We will reach out shortly.");
-      setForm(emptyForm);
-      setFileName("");
-      if (fileRef.current) fileRef.current.value = "";
-    } else {
-      toast.error("Something went wrong. Please reach us on WhatsApp for a fast reply.");
+    } catch (e2) {
+      setBusy(false);
+      failToWhatsApp(`web3forms request failed: ${e2?.message}`);
     }
   };
 
@@ -125,9 +206,10 @@ export const QuoteForm = ({ bare = false }) => {
         className="rounded-2xl hairline bg-[var(--w-charcoal-900)] p-10 text-center"
       >
         <CheckCircle2 className="mx-auto text-[#25D366]" size={54} />
-        <h3 className="mt-4 font-display text-2xl text-white">Request received</h3>
+        <h3 className="mt-4 font-display text-2xl text-chrome">Request received</h3>
         <p className="mt-2 text-[var(--w-silver-500)]">
-          Thanks for reaching out. We will get back to you shortly. For the fastest reply, message us on WhatsApp.
+          Thanks for reaching out. We will get back to you shortly. Send us a photo of
+          your vehicle on WhatsApp and we can quote you far more accurately.
         </p>
         <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
           <a
@@ -136,7 +218,7 @@ export const QuoteForm = ({ bare = false }) => {
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 h-11 px-6 rounded-xl bg-[#25D366] text-black font-500"
           >
-            <MessageCircle size={18} /> Message on WhatsApp
+            <MessageCircle size={18} /> Send photos on WhatsApp
           </a>
           <button
             onClick={() => setDone(false)}
@@ -151,7 +233,7 @@ export const QuoteForm = ({ bare = false }) => {
   }
 
   return (
-    <form data-testid="quote-form" onSubmit={submit} className={bare ? "" : "rounded-2xl hairline bg-[var(--w-charcoal-900)] p-6 sm:p-8"}>
+    <form data-testid="quote-form" noValidate onSubmit={submit} className={bare ? "" : "rounded-2xl hairline bg-[var(--w-charcoal-900)] p-6 sm:p-8"}>
       {/* Honeypot (hidden from humans) */}
       <input
         type="text"
@@ -165,17 +247,20 @@ export const QuoteForm = ({ bare = false }) => {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <Label className={labelClass}>Name</Label>
-          <Input data-testid="quote-name" className={inputClass} value={form.name} onChange={update("name")} placeholder="Your name" required />
+          <Input data-testid="quote-name" className={`${inputClass} ${errors.name ? errorInputClass : ""}`} value={form.name} onChange={update("name")} {...fieldProps("name")} placeholder="Your name" />
+          <FieldError id="name-error">{errors.name}</FieldError>
         </div>
         <div>
           <Label className={labelClass}>Phone Number</Label>
-          <Input data-testid="quote-phone" className={inputClass} value={form.phone} onChange={update("phone")} placeholder="(647) 000-0000" required />
+          <Input data-testid="quote-phone" inputMode="tel" className={`${inputClass} ${errors.phone ? errorInputClass : ""}`} value={form.phone} onChange={update("phone")} {...fieldProps("phone")} placeholder="(647) 000-0000" />
+          <FieldError id="phone-error">{errors.phone}</FieldError>
         </div>
       </div>
 
       <div className="mt-4">
         <Label className={labelClass}>Email</Label>
-        <Input data-testid="quote-email" type="email" className={inputClass} value={form.email} onChange={update("email")} placeholder="you@email.com" required />
+        <Input data-testid="quote-email" type="email" inputMode="email" className={`${inputClass} ${errors.email ? errorInputClass : ""}`} value={form.email} onChange={update("email")} {...fieldProps("email")} placeholder="you@email.com" />
+        <FieldError id="email-error">{errors.email}</FieldError>
       </div>
 
       <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -189,7 +274,8 @@ export const QuoteForm = ({ bare = false }) => {
         </div>
         <div>
           <Label className={labelClass}>Year</Label>
-          <Input data-testid="quote-year" className={inputClass} value={form.vehicle_year} onChange={update("vehicle_year")} placeholder="e.g. 2023" />
+          <Input data-testid="quote-vehicle-year" inputMode="numeric" maxLength={4} className={`${inputClass} ${errors.vehicle_year ? errorInputClass : ""}`} value={form.vehicle_year} onChange={update("vehicle_year")} {...fieldProps("vehicle_year")} placeholder="e.g. 2023" />
+          <FieldError id="vehicle_year-error">{errors.vehicle_year}</FieldError>
         </div>
       </div>
 
@@ -230,27 +316,26 @@ export const QuoteForm = ({ bare = false }) => {
           value={form.message}
           onChange={update("message")}
           placeholder="Tell us what you want done, colors, finishes, timeline, anything helpful."
+          {...fieldProps("message")}
         />
+        <FieldError id="message-error">{errors.message}</FieldError>
       </div>
 
-      <div className="mt-4">
-        <Label className={labelClass}>Vehicle Photo (optional)</Label>
-        <label
-          htmlFor="quote-upload"
-          className="flex items-center gap-3 h-11 px-4 rounded-xl border border-dashed border-white/15 text-sm text-[var(--w-silver-500)] cursor-pointer hover:border-white/30 transition-colors"
-        >
-          <Upload size={16} />
-          {fileName || "Attach a photo of your vehicle (max 5 MB)"}
-        </label>
-        <input
-          id="quote-upload"
-          data-testid="quote-form-upload-input"
-          ref={fileRef}
-          type="file"
-          accept="image/jpeg,image/png,image/webp"
-          className="hidden"
-          onChange={(e) => setFileName(e.target.files?.[0]?.name || "")}
-        />
+      <div className="mt-4 flex items-start gap-3 rounded-xl border border-dashed border-white/15 px-4 py-3">
+        <MessageCircle size={16} className="mt-0.5 shrink-0 text-[#25D366]" />
+        <p className="text-sm text-[var(--w-silver-500)]">
+          Got photos of your vehicle?{" "}
+          <a
+            href={LINKS.whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-testid="quote-form-photo-whatsapp-link"
+            className="text-white underline underline-offset-4 hover:text-[#25D366] transition-colors"
+          >
+            Send them on WhatsApp
+          </a>{" "}
+          and we will quote you far more accurately.
+        </p>
       </div>
 
       <div className="mt-6 flex flex-col sm:flex-row gap-3">

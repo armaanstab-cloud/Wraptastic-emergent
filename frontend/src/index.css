@@ -9,9 +9,9 @@
     /* Wraptastic brand tokens */
     --w-black-950: #070708;
     --w-black-975: #050506;
-    --w-charcoal-900: #0E0F12;
-    --w-charcoal-850: #14161B;
-    --w-graphite-800: #1B1E25;
+    --w-charcoal-900: #13161C;
+    --w-charcoal-850: #1A1E26;
+    --w-graphite-800: #22262F;
     --w-graphite-700: #242833;
     --w-steel-600: #3A404D;
     --w-silver-500: #AEB6C2;
@@ -32,7 +32,7 @@
 
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
-    --w-hero-vignette: radial-gradient(1200px 620px at 62% 55%, rgba(225, 6, 0, 0.14) 0%, rgba(225, 6, 0, 0.04) 32%, rgba(7, 7, 8, 0.0) 58%), radial-gradient(140% 120% at 50% 40%, rgba(5, 5, 6, 0.0) 30%, rgba(5, 5, 6, 0.55) 72%, rgba(5, 5, 6, 0.9) 100%), linear-gradient(180deg, rgba(5, 5, 6, 0.82) 0%, rgba(5, 5, 6, 0.35) 34%, rgba(7, 7, 8, 0.72) 74%, rgba(7, 7, 8, 0.98) 100%);
+    --w-hero-vignette: radial-gradient(1200px 620px at 62% 55%, rgba(225, 6, 0, 0.06) 0%, rgba(225, 6, 0, 0.015) 32%, rgba(7, 7, 8, 0.0) 58%), radial-gradient(140% 120% at 50% 38%, rgba(5, 5, 6, 0.0) 42%, rgba(5, 5, 6, 0.34) 74%, rgba(5, 5, 6, 0.72) 100%), linear-gradient(180deg, rgba(5, 5, 6, 0.52) 0%, rgba(5, 5, 6, 0.08) 30%, rgba(7, 7, 8, 0.52) 70%, rgba(7, 7, 8, 0.94) 100%);
 
     /* shadcn tokens mapped to dark automotive palette */
     --background: 220 12% 4%;
@@ -118,11 +118,11 @@
     .container-w { padding-left: 2.5rem; padding-right: 2.5rem; }
   }
   .glass {
-    background: rgba(7, 8, 10, 0.6);
+    background: rgba(16, 18, 24, 0.62);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
   }
-  .hairline { border: 1px solid rgba(238, 241, 246, 0.10); }
+  .hairline { border: 1px solid rgba(238, 241, 246, 0.14); }
   .red-glow {
     box-shadow: 0 0 0 1px rgba(225, 6, 0, 0.25), 0 18px 60px rgba(225, 6, 0, 0.14);
   }
@@ -152,10 +152,10 @@
   }
   .card-sheen:hover::after { left: 130%; }
   .cine-video {
-    filter: brightness(0.8) contrast(1.08) saturate(1.05);
+    filter: brightness(0.96) contrast(1.05) saturate(1.12);
   }
   .cine-video-soft {
-    filter: brightness(0.85) contrast(1.06) saturate(1.04);
+    filter: brightness(0.98) contrast(1.04) saturate(1.10);
   }
   .marquee-mask {
     mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);

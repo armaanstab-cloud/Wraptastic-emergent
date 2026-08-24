@@ -51,7 +51,7 @@ export const WorkGalleryMasonry = ({ limit }) => {
                 className="h-full w-full object-cover transition-transform duration-[900ms] group-hover:scale-[1.05]"
               />
             )}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-70 group-hover:opacity-90 transition-opacity" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/5 via-45% to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
             {item.type === "video" && (
               <span className="absolute top-3 right-3 h-9 w-9 inline-flex items-center justify-center rounded-full bg-black/55 backdrop-blur border border-white/20 text-white">
                 <Play size={15} className="ml-0.5" />
