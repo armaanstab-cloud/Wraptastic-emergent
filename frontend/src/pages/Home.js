@@ -1,64 +1,61 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import { ArrowRight, ShieldCheck, Sparkles, Wrench, Gauge } from "lucide-react";
+import { ArrowRight, ShieldCheck, Layers, Sparkles, Timer, Star } from "lucide-react";
 import { CinematicHero } from "@/components/CinematicHero";
-import { ScrollVehicleTransition } from "@/components/ScrollVehicleTransition";
+import { WheelSpeedScroll } from "@/components/WheelSpeedScroll";
 import { ServiceCardPremium } from "@/components/ServiceCardPremium";
 import { ReviewBelt } from "@/components/ReviewBelt";
-import { WorkGalleryMasonry } from "@/components/WorkGalleryMasonry";
+import { InstagramFeed } from "@/components/InstagramFeed";
 import { Reveal, SectionHeading } from "@/components/Reveal";
-import { SERVICES, FEATURED, BRANDS, ASSETS, LINKS } from "@/lib/site";
+import { CtaPrimary, CtaChrome, CtaWhatsApp } from "@/components/Buttons";
+import { SERVICES, FEATURED, BRANDS, ASSETS } from "@/lib/site";
 
 const WHY = [
-  { icon: ShieldCheck, title: "Protection First", text: "Wraps, PPF and ceramic coating that keep your finish looking new for longer." },
-  { icon: Sparkles, title: "Show Car Finish", text: "Clean edges, tight panel gaps and flawless application on every build." },
-  { icon: Wrench, title: "Quality Materials", text: "Premium films and coatings from trusted brands, matched to your vehicle." },
-  { icon: Gauge, title: "Style & Performance", text: "From color changes to tuning, we build cars that stand out and perform." },
+  { icon: Layers, title: "Precision Installs", text: "Wrapped edges, clean corners and tight panel gaps. Every build is finished like a show car." },
+  { icon: ShieldCheck, title: "Real Protection", text: "PPF, ceramic coating and nano ceramic tint that protect your investment for years." },
+  { icon: Sparkles, title: "Premium Materials", text: "Avery Dennison, 3M, XPEL and more. Special materials available on request." },
+  { icon: Timer, title: "Fast Communication", text: "Message us on WhatsApp and get answers fast. Clear quotes, honest recommendations." },
 ];
 
 export default function Home() {
   useEffect(() => {
-    document.title = "Wraptastic Auto Customs | Built To Stand Out";
+    document.title = "Wraptastic Auto Customs | Vinyl Wraps, PPF, Ceramic & Tint in Brampton";
   }, []);
 
   return (
     <div>
       <CinematicHero />
 
-      {/* Brand intro */}
-      <section className="relative bg-[var(--w-black-950)] py-20 lg:py-28">
-        <div className="container-w grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">
-          <Reveal className="lg:col-span-7">
-            <div className="mb-3 flex items-center gap-3">
-              <span className="h-px w-8 bg-[var(--w-red-accent)]" />
-              <span className="font-mono text-xs uppercase tracking-[0.28em] text-[var(--w-silver-500)]">Wraptastic Auto Customs</span>
-            </div>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl tracking-[-0.02em] text-white leading-[1.05]">
-              Your vehicle deserves <span className="text-chrome">more than factory.</span>
+      {/* Intro statement */}
+      <section className="relative bg-[var(--w-black-950)] py-20 lg:py-28 overflow-hidden">
+        <div className="container-w">
+          <Reveal>
+            <p className="font-mono text-xs uppercase tracking-[0.3em] text-[var(--w-red-glow)] mb-5">The Wraptastic Standard</p>
+            <h2 className="font-display text-4xl sm:text-6xl lg:text-7xl leading-[0.95] max-w-4xl">
+              <span className="text-white">Your car, </span>
+              <span className="text-chrome">but the way you always pictured it.</span>
             </h2>
-          </Reveal>
-          <Reveal delay={0.1} className="lg:col-span-5">
-            <p className="text-base sm:text-lg text-[var(--w-silver-500)] leading-relaxed">
-              Based in Brampton and serving the GTA, we specialize in premium customization and protection. Wraps, paint protection film, ceramic coating, tint and more. Real work, real results.
+            <p className="mt-6 max-w-2xl text-lg text-[var(--w-silver-500)] leading-relaxed">
+              Color-change wraps, paint protection film, ceramic coating, tint, paint correction and performance work —
+              handled with obsessive attention to detail in Brampton, serving the entire GTA.
             </p>
-            <p className="mt-4 font-display text-xl text-white">Protection. Style. Performance.</p>
           </Reveal>
         </div>
       </section>
 
-      {/* Services overview */}
-      <section className="relative bg-[var(--w-black-975)] py-20 lg:py-28">
+      {/* Services preview */}
+      <section className="bg-[var(--w-black-975)] py-16 lg:py-24 border-t border-white/5">
         <div className="container-w">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
-            <SectionHeading eyebrow="What We Do" title="Services" />
-            <Link to="/services" data-testid="home-view-all-services" className="inline-flex items-center gap-2 text-sm text-[var(--w-chrome-300)] hover:text-white transition-colors">
-              View all services <ArrowRight size={16} />
-            </Link>
+            <SectionHeading eyebrow="What We Do" title="Premium Services" />
+            <span className="shrink-0">
+              <CtaChrome to="/services" testId="home-all-services-button">
+                All Services <ArrowRight size={16} />
+              </CtaChrome>
+            </span>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
             {SERVICES.slice(0, 6).map((s, i) => (
-              <Reveal key={s.slug} delay={i * 0.05}>
+              <Reveal key={s.slug} delay={(i % 3) * 0.07}>
                 <ServiceCardPremium service={s} />
               </Reveal>
             ))}
@@ -66,58 +63,74 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Cinematic scroll transition */}
-      <ScrollVehicleTransition />
+      {/* Signature wheel-spin scroll set-piece */}
+      <WheelSpeedScroll />
 
-      {/* Featured work */}
-      <section className="relative bg-[var(--w-black-950)] py-20 lg:py-28">
+      {/* Featured builds */}
+      <section className="bg-[var(--w-black-950)] py-16 lg:py-24 border-t border-white/5">
         <div className="container-w">
-          <SectionHeading eyebrow="Featured Builds" title="Recent Work" className="mb-12" />
-          <div className="space-y-8 lg:space-y-12">
+          <SectionHeading eyebrow="Real Vehicles, Real Results" title="Featured Builds" className="mb-14" />
+          <div className="space-y-16 lg:space-y-24">
             {FEATURED.map((f, i) => (
               <Reveal key={f.id}>
-                <div className={`grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center ${i % 2 === 1 ? "lg:[direction:rtl]" : ""}`}>
-                  <div className="lg:col-span-7 [direction:ltr]">
-                    <div className="relative overflow-hidden rounded-2xl hairline group">
-                      <img src={f.image} alt={f.title} loading="lazy" className="w-full aspect-[16/10] object-cover transition-transform duration-[1200ms] group-hover:scale-105" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                <div
+                  data-testid={`featured-build-${f.id}`}
+                  className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center"
+                >
+                  <div className={`relative lg:col-span-7 ${i % 2 === 1 ? "lg:order-2" : ""}`}>
+                    <span
+                      aria-hidden
+                      className={`hidden lg:block absolute -top-14 ${i % 2 === 1 ? "-right-4" : "-left-4"} font-display display-outline text-[9rem] leading-none select-none`}
+                    >
+                      0{i + 1}
+                    </span>
+                    <div className="group relative overflow-hidden rounded-2xl hairline card-sheen shadow-[var(--shadow-elev-2)]">
+                      <img
+                        src={f.image}
+                        alt={f.title}
+                        loading="lazy"
+                        className="w-full aspect-[16/10] object-cover transition-transform duration-[1100ms] ease-out group-hover:scale-[1.05]"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                     </div>
                   </div>
-                  <div className="lg:col-span-5 [direction:ltr]">
-                    <p className="font-mono text-xs uppercase tracking-[0.24em] text-[var(--w-red-glow)]">{f.subtitle}</p>
-                    <h3 className="mt-3 font-display text-2xl sm:text-3xl text-white tracking-[-0.01em]">{f.title}</h3>
-                    <p className="mt-3 text-[var(--w-silver-500)] leading-relaxed">{f.desc}</p>
-                    <div className="mt-4 flex flex-wrap gap-2">
+                  <div className={`lg:col-span-5 ${i % 2 === 1 ? "lg:order-1" : ""}`}>
+                    <p className="font-mono text-xs uppercase tracking-[0.26em] text-[var(--w-red-glow)]">{f.subtitle}</p>
+                    <h3 className="mt-3 font-display text-4xl sm:text-5xl text-chrome">{f.title}</h3>
+                    <p className="mt-4 text-[var(--w-silver-500)] leading-relaxed">{f.desc}</p>
+                    <div className="mt-5 flex flex-wrap gap-2">
                       {f.tags.map((t) => (
-                        <span key={t} className="rounded-md bg-white/5 px-2.5 py-1 text-[11px] font-mono text-white/60 border border-white/10">{t}</span>
+                        <span key={t} className="rounded-full bg-white/5 border border-white/10 px-3.5 py-1.5 text-xs font-mono text-[var(--w-chrome-300)]/80">
+                          {t}
+                        </span>
                       ))}
                     </div>
+                    <div className="mt-7">
+                      <CtaChrome to="/work" testId={`featured-see-work-${f.id}`}>
+                        See More Work <ArrowRight size={16} />
+                      </CtaChrome>
+                    </div>
                   </div>
                 </div>
               </Reveal>
             ))}
           </div>
-          <div className="mt-12 text-center">
-            <Link to="/work" data-testid="home-view-gallery" className="inline-flex items-center gap-2 h-12 px-6 rounded-xl border border-white/15 text-white hover:bg-white/5 transition-colors">
-              View the full gallery <ArrowRight size={18} />
-            </Link>
-          </div>
         </div>
       </section>
 
-      {/* Why Wraptastic */}
-      <section className="relative bg-[var(--w-black-975)] py-20 lg:py-28">
+      {/* Why us */}
+      <section className="bg-[var(--w-black-975)] py-16 lg:py-24 border-t border-white/5">
         <div className="container-w">
-          <SectionHeading eyebrow="Why Wraptastic" title="Details That Last" className="mb-12" />
+          <SectionHeading eyebrow="Why Wraptastic" title="Built Different" className="mb-12" />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {WHY.map((w, i) => (
-              <Reveal key={w.title} delay={i * 0.06}>
-                <div className="h-full rounded-2xl hairline bg-[var(--w-charcoal-900)] p-6 hover:border-white/25 transition-colors">
-                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--w-red-accent)]/10 border border-[var(--w-red-accent)]/25 text-[var(--w-red-glow)]">
-                    <w.icon size={20} />
+            {WHY.map((v, i) => (
+              <Reveal key={v.title} delay={i * 0.06}>
+                <div className="h-full rounded-2xl hairline bg-[rgba(14,15,18,0.75)] p-6 transition-[border-color,transform] duration-300 hover:border-[rgba(215,220,228,0.25)] hover:-translate-y-1">
+                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[var(--w-red-accent)]/10 border border-[var(--w-red-accent)]/25 text-[var(--w-red-glow)]">
+                    <v.icon size={20} />
                   </span>
-                  <h3 className="mt-4 font-display text-lg text-white">{w.title}</h3>
-                  <p className="mt-2 text-sm text-[var(--w-silver-500)] leading-relaxed">{w.text}</p>
+                  <h3 className="mt-4 text-lg text-white font-bold">{v.title}</h3>
+                  <p className="mt-2 text-sm text-[var(--w-silver-500)] leading-relaxed">{v.text}</p>
                 </div>
               </Reveal>
             ))}
@@ -125,51 +138,57 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Brands & materials */}
-      <section className="relative bg-[var(--w-black-950)] py-16 lg:py-20 border-y border-white/10">
-        <div className="container-w">
-          <Reveal>
-            <p className="text-center font-mono text-xs uppercase tracking-[0.28em] text-[var(--w-silver-500)] mb-8">
-              Materials & Brands We Work With
-            </p>
-          </Reveal>
-          <div data-testid="brands-strip" className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
-            {BRANDS.map((b, i) => (
-              <Reveal key={b} delay={i * 0.05}>
-                <span className="font-display text-xl sm:text-2xl text-white/40 hover:text-white transition-colors tracking-[0.02em]">{b}</span>
-              </Reveal>
+      {/* Brands marquee */}
+      <section className="bg-[var(--w-black-950)] py-14 border-t border-white/5 overflow-hidden">
+        <p className="text-center font-mono text-xs uppercase tracking-[0.3em] text-[var(--w-silver-500)] mb-8">Materials & Brands We Trust</p>
+        <div className="marquee-mask">
+          <div className="brand-marquee gap-16 pr-16" data-testid="brands-marquee">
+            {[...BRANDS, ...BRANDS, ...BRANDS, ...BRANDS].map((b, i) => (
+              <span key={`${b}-${i}`} className="font-display text-3xl sm:text-4xl text-white/25 hover:text-white/70 transition-colors duration-300 whitespace-nowrap">
+                {b}
+              </span>
             ))}
           </div>
-          <p className="mt-8 text-center text-sm text-[var(--w-silver-500)]">Special materials and brands available upon request.</p>
         </div>
       </section>
 
-      {/* Reviews */}
-      <section className="relative bg-[var(--w-black-975)] py-20 lg:py-28">
-        <div className="container-w max-w-5xl">
-          <SectionHeading eyebrow="Reviews" title="What Customers Say" align="center" className="mb-12" />
-          <ReviewBelt />
+      {/* Reviews belt */}
+      <section className="bg-[var(--w-black-975)] py-16 lg:py-24 border-t border-white/5 overflow-hidden">
+        <div className="container-w mb-12 flex items-end justify-between gap-6">
+          <SectionHeading eyebrow="5.0 On Google" title="What Drivers Say" />
+          <span className="hidden sm:inline-flex items-center gap-1.5">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Star key={i} size={18} className="fill-[var(--w-red-accent)] text-[var(--w-red-accent)]" />
+            ))}
+          </span>
+        </div>
+        <ReviewBelt />
+      </section>
+
+      {/* Instagram */}
+      <section className="bg-[var(--w-black-950)] py-16 lg:py-24 border-t border-white/5">
+        <div className="container-w">
+          <InstagramFeed />
         </div>
       </section>
 
       {/* Final CTA */}
-      <section className="relative bg-[var(--w-black-950)] py-20 lg:py-28 overflow-hidden">
-        <div className="absolute inset-0 opacity-40" style={{ background: LINKS ? "var(--w-hero-vignette)" : "" }} />
-        <div className="container-w relative z-10 text-center max-w-3xl">
+      <section className="relative py-28 lg:py-40 overflow-hidden">
+        <img src={ASSETS.viperStill} alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-black/72" />
+        <div className="absolute inset-0" style={{ background: "var(--w-hero-vignette)" }} />
+        <div className="relative z-10 container-w text-center">
           <Reveal>
-            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-[-0.02em] text-chrome">
-              Ready to stand out?
-            </h2>
-            <p className="mt-4 text-lg text-[var(--w-silver-500)]">
-              Tell us about your vehicle and what you want done. We will get you a quote fast.
+            <p className="font-mono text-xs uppercase tracking-[0.3em] text-[var(--w-red-glow)]">Your Build Starts Here</p>
+            <h2 className="mt-4 font-display text-5xl sm:text-7xl lg:text-8xl text-chrome">READY TO STAND OUT?</h2>
+            <p className="mt-5 max-w-xl mx-auto text-lg text-[var(--w-silver-500)]">
+              Send us your vehicle details and get a quote. Fastest reply on WhatsApp.
             </p>
-            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
-              <Link to="/contact" data-testid="home-final-quote-button" className="inline-flex items-center justify-center gap-2 h-13 px-8 py-3.5 rounded-xl bg-[var(--w-red-accent)] text-white font-500 hover:bg-[var(--w-red-deep)] transition-colors">
+            <div className="mt-9 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <CtaPrimary to="/contact" size="lg" testId="home-final-quote-button">
                 Get a Quote <ArrowRight size={18} />
-              </Link>
-              <a href={LINKS.whatsapp} target="_blank" rel="noopener noreferrer" data-testid="home-final-whatsapp-button" className="inline-flex items-center justify-center h-13 px-8 py-3.5 rounded-xl border border-white/20 text-white hover:bg-white/5 transition-colors">
-                Get a Quote on WhatsApp
-              </a>
+              </CtaPrimary>
+              <CtaWhatsApp size="lg" testId="home-final-whatsapp-button">WhatsApp Us</CtaWhatsApp>
             </div>
           </Reveal>
         </div>

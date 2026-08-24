@@ -1,34 +1,26 @@
 [
   {
-    "content": "Phase 1 POC: Nano Banana enhancement + quote flow validated",
+    "content": "Get updated design guidelines from design_agent for premium overhaul",
     "status": "completed"
   },
   {
-    "content": "Phase 1: AI enhancement confirmed acceptable (vehicles preserved)",
+    "content": "Asset pipeline: transparent logo, enhance 5 new images (nano banana), enhance viper video (ffmpeg), wheel crop, racing stripes image",
     "status": "completed"
   },
   {
-    "content": "Phase 2: Design guidelines obtained",
+    "content": "Frontend rebuild: fonts, hero, wheel speed scroll set-piece, premium buttons, bigger logo",
     "status": "completed"
   },
   {
-    "content": "Phase 2: Real assets prepared (media + posters + enhanced photos)",
+    "content": "Services page: images next to service names; Reviews infinite draggable belt; Instagram feed section",
     "status": "completed"
   },
   {
-    "content": "Phase 2: Backend /api/quotes + health + honeypot",
+    "content": "Test full site (testing agent + screenshots), verify mobile",
     "status": "completed"
   },
   {
-    "content": "Phase 2: Full cinematic frontend (all pages + sections + motion + gallery + reviews + quote form + WhatsApp)",
-    "status": "completed"
-  },
-  {
-    "content": "Phase 2: SEO (meta, OG, JSON-LD) + portability README",
-    "status": "completed"
-  },
-  {
-    "content": "Phase 2: End-to-end testing via testing_agent_v3 (Backend 6/6, Frontend 8/8 passed)",
+    "content": "Explain Web3Forms key setup + Instagram live feed options to user",
     "status": "completed"
   }
 ]

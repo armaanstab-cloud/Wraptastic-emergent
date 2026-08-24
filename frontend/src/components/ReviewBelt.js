@@ -1,91 +1,136 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { Star, ChevronLeft, ChevronRight, Quote, ArrowUpRight } from "lucide-react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
+import { motion, useMotionValue, useAnimationFrame, useReducedMotion } from "framer-motion";
+import { Star, Quote, ArrowUpRight, MoveHorizontal } from "lucide-react";
 import { REVIEWS, LINKS } from "@/lib/site";
 
-export const ReviewBelt = () => {
-  const [index, setIndex] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const count = REVIEWS.length;
+const GAP = 20; // px, matches gap-5
+const SPEED = 46; // px per second
 
-  const go = useCallback((dir) => {
-    setIndex((i) => (i + dir + count) % count);
-  }, [count]);
+const ReviewCard = ({ review, idx }) => (
+  <div
+    data-testid={`review-card-${idx}`}
+    className="relative w-[320px] sm:w-[400px] shrink-0 rounded-2xl hairline bg-[rgba(14,15,18,0.75)] backdrop-blur-md p-6 sm:p-7 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]"
+  >
+    <Quote className="absolute top-5 right-5 text-white/[0.06]" size={56} />
+    <div className="flex items-center gap-1 mb-4" aria-label={`${review.rating} out of 5 stars`}>
+      {Array.from({ length: review.rating }).map((_, i) => (
+        <Star key={i} size={15} className="fill-[var(--w-red-accent)] text-[var(--w-red-accent)]" />
+      ))}
+    </div>
+    <p className="text-[15px] leading-relaxed text-[var(--w-chrome-300)]/90 line-clamp-5">
+      “{review.text}”
+    </p>
+    <p className="mt-5 font-mono text-xs uppercase tracking-[0.2em] text-[var(--w-silver-500)]">
+      {review.name}
+    </p>
+  </div>
+);
+
+// Infinite auto-scrolling belt. Pauses on hover, fully draggable by the user.
+export const ReviewBelt = () => {
+  const reduce = useReducedMotion();
+  const x = useMotionValue(0);
+  const setRef = useRef(null);
+  const periodRef = useRef(0);
+  const pausedRef = useRef(false);
+  const [ready, setReady] = useState(false);
+
+  const measure = useCallback(() => {
+    if (setRef.current) {
+      periodRef.current = setRef.current.offsetWidth + GAP;
+      x.set(-periodRef.current);
+      setReady(true);
+    }
+  }, [x]);
 
   useEffect(() => {
-    if (paused) return;
-    const t = setInterval(() => setIndex((i) => (i + 1) % count), 5000);
-    return () => clearInterval(t);
-  }, [paused, count]);
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [measure]);
 
-  const review = REVIEWS[index];
+  useAnimationFrame((_, delta) => {
+    const period = periodRef.current;
+    if (!period || pausedRef.current || reduce) return;
+    let v = x.get() - (SPEED * delta) / 1000;
+    while (v <= -2 * period) v += period;
+    while (v > -period) v -= period;
+    x.set(v);
+  });
 
-  return (
-    <div
-      data-testid="reviews-carousel"
-      className="relative"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-    >
-      <div className="relative overflow-hidden rounded-2xl hairline bg-[var(--w-charcoal-900)] p-8 sm:p-12 min-h-[320px] flex">
-        <Quote className="absolute top-6 right-6 text-white/5" size={90} />
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 16, filter: "blur(6px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            exit={{ opacity: 0, y: -16, filter: "blur(6px)" }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="relative z-10 flex flex-col justify-center max-w-3xl"
-          >
-            <div className="flex items-center gap-1 mb-5" aria-label={`${review.rating} out of 5 stars`}>
-              {Array.from({ length: review.rating }).map((_, i) => (
-                <Star key={i} size={18} className="fill-[var(--w-red-accent)] text-[var(--w-red-accent)]" />
-              ))}
-            </div>
-            <p className="font-display text-xl sm:text-2xl leading-snug text-white/90 tracking-[-0.01em]">
-              “{review.text}”
-            </p>
-            <p className="mt-6 font-mono text-sm uppercase tracking-[0.2em] text-[var(--w-silver-500)]">
-              {review.name}
-            </p>
-          </motion.div>
-        </AnimatePresence>
-      </div>
+  const normalize = () => {
+    const period = periodRef.current;
+    if (!period) return;
+    let v = x.get();
+    while (v <= -2 * period) v += period;
+    while (v > -period) v -= period;
+    x.set(v);
+  };
 
-      <div className="mt-6 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          {REVIEWS.map((_, i) => (
-            <button
-              key={i}
-              aria-label={`Go to review ${i + 1}`}
-              data-testid={`reviews-dot-${i}`}
-              onClick={() => setIndex(i)}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                i === index ? "w-8 bg-[var(--w-red-accent)]" : "w-2 bg-white/20 hover:bg-white/40"
-              }`}
-            />
+  if (reduce) {
+    return (
+      <div data-testid="reviews-belt" className="overflow-x-auto">
+        <div className="flex gap-5 pb-3">
+          {REVIEWS.map((r, i) => (
+            <ReviewCard key={r.name} review={r} idx={i} />
           ))}
         </div>
-        <div className="flex items-center gap-2">
-          <button aria-label="Previous review" data-testid="reviews-prev" onClick={() => go(-1)} className="h-10 w-10 inline-flex items-center justify-center rounded-xl border border-white/15 text-white hover:bg-white/5 transition-colors">
-            <ChevronLeft size={18} />
-          </button>
-          <button aria-label="Next review" data-testid="reviews-next" onClick={() => go(1)} className="h-10 w-10 inline-flex items-center justify-center rounded-xl border border-white/15 text-white hover:bg-white/5 transition-colors">
-            <ChevronRight size={18} />
-          </button>
-        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div data-testid="reviews-belt" className="relative">
+      <div
+        className="marquee-mask overflow-hidden py-2 -my-2"
+        onMouseEnter={() => (pausedRef.current = true)}
+        onMouseLeave={() => (pausedRef.current = false)}
+      >
+        <motion.div
+          className="flex w-max gap-5 cursor-grab active:cursor-grabbing"
+          style={{ x, opacity: ready ? 1 : 0 }}
+          drag="x"
+          dragConstraints={{ left: -Infinity, right: Infinity }}
+          dragTransition={{ power: 0.18, timeConstant: 180 }}
+          onDragStart={() => (pausedRef.current = true)}
+          onDragEnd={() => {
+            setTimeout(() => {
+              normalize();
+              pausedRef.current = false;
+            }, 260);
+          }}
+          data-testid="reviews-belt-track"
+        >
+          <div ref={setRef} className="flex gap-5">
+            {REVIEWS.map((r, i) => (
+              <ReviewCard key={`a-${r.name}`} review={r} idx={i} />
+            ))}
+          </div>
+          <div className="flex gap-5" aria-hidden>
+            {REVIEWS.map((r, i) => (
+              <ReviewCard key={`b-${r.name}`} review={r} idx={`b-${i}`} />
+            ))}
+          </div>
+          <div className="flex gap-5" aria-hidden>
+            {REVIEWS.map((r, i) => (
+              <ReviewCard key={`c-${r.name}`} review={r} idx={`c-${i}`} />
+            ))}
+          </div>
+        </motion.div>
       </div>
 
-      <div className="mt-8 text-center">
+      <div className="mt-7 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <span className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.24em] text-white/35">
+          <MoveHorizontal size={14} /> Drag to explore
+        </span>
         <a
           href={LINKS.google}
           target="_blank"
           rel="noopener noreferrer"
           data-testid="reviews-google-cta"
-          className="inline-flex items-center gap-2 h-11 px-6 rounded-xl border border-white/15 text-[var(--w-chrome-300)] hover:border-white/30 hover:bg-white/5 transition-colors"
+          className="inline-flex items-center gap-2 h-11 px-6 rounded-full border border-[rgba(215,220,228,0.22)] bg-[rgba(14,15,18,0.55)] text-sm font-semibold uppercase tracking-[0.1em] text-[var(--w-chrome-300)] hover:border-[rgba(215,220,228,0.45)] hover:text-white transition-[border-color,color,background-color] duration-200"
         >
-          See more reviews on Google <ArrowUpRight size={16} />
+          See all reviews on Google <ArrowUpRight size={15} />
         </a>
       </div>
     </div>

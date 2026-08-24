@@ -1,23 +1,22 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import { ArrowRight, Check, MessageCircle } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import { Reveal, SectionHeading } from "@/components/Reveal";
-import { SERVICES, VEHICLE_TYPES, BRANDS, LINKS, ASSETS } from "@/lib/site";
+import { CtaPrimary, CtaWhatsApp, CtaChrome } from "@/components/Buttons";
+import { SERVICES, VEHICLE_TYPES, BRANDS, ASSETS } from "@/lib/site";
 
 const PageHeader = ({ eyebrow, title, sub, poster }) => (
-  <section className="relative pt-32 pb-16 lg:pt-40 lg:pb-24 overflow-hidden bg-[var(--w-black-975)]">
+  <section className="relative pt-36 pb-16 lg:pt-44 lg:pb-24 overflow-hidden bg-[var(--w-black-975)]">
     <div className="absolute inset-0 opacity-30">
       <img src={poster} alt="" className="h-full w-full object-cover" />
       <div className="absolute inset-0" style={{ background: "var(--w-hero-vignette)" }} />
     </div>
     <div className="container-w relative z-10">
       <Reveal>
-        <div className="mb-3 flex items-center gap-3">
+        <div className="mb-4 flex items-center gap-3">
           <span className="h-px w-8 bg-[var(--w-red-accent)]" />
           <span className="font-mono text-xs uppercase tracking-[0.28em] text-[var(--w-silver-500)]">{eyebrow}</span>
         </div>
-        <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl tracking-[-0.03em] text-chrome">{title}</h1>
+        <h1 className="font-display text-6xl sm:text-7xl lg:text-8xl text-chrome">{title}</h1>
         {sub && <p className="mt-5 max-w-2xl text-lg text-[var(--w-silver-500)]">{sub}</p>}
       </Reveal>
     </div>
@@ -39,30 +38,46 @@ export default function Services() {
       />
 
       <section className="bg-[var(--w-black-950)] py-16 lg:py-24">
-        <div className="container-w space-y-6">
+        <div className="container-w space-y-8">
           {SERVICES.map((s, i) => (
             <Reveal key={s.slug}>
               <div
                 id={s.slug}
                 data-testid={`service-section-${s.slug}`}
-                className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center rounded-2xl hairline bg-[var(--w-charcoal-900)] overflow-hidden"
+                className="group grid grid-cols-1 lg:grid-cols-12 items-stretch rounded-2xl hairline bg-[rgba(14,15,18,0.8)] overflow-hidden card-sheen transition-[border-color,box-shadow] duration-300 hover:border-[rgba(215,220,228,0.22)]"
               >
-                <div className={`lg:col-span-6 ${i % 2 === 1 ? "lg:order-2" : ""}`}>
-                  <div className="relative aspect-[16/11] overflow-hidden group">
-                    <img src={s.image} alt={s.name} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[var(--w-charcoal-900)]/70 to-transparent" />
+                {/* Image with the vehicle right next to the service name */}
+                <div className={`relative lg:col-span-5 ${i % 2 === 1 ? "lg:order-2" : ""}`}>
+                  <div className="relative h-64 sm:h-80 lg:h-full min-h-[16rem] overflow-hidden">
+                    <img
+                      src={s.image}
+                      alt={s.name}
+                      loading="lazy"
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1100ms] group-hover:scale-[1.05]"
+                    />
+                    <div className={`absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent lg:bg-gradient-to-${i % 2 === 1 ? "l" : "r"} lg:from-transparent lg:via-transparent lg:to-[rgba(14,15,18,0.9)]`} />
+                    <span className="absolute bottom-4 left-5 lg:hidden font-display text-3xl text-white drop-shadow-[0_4px_14px_rgba(0,0,0,0.8)]">
+                      {s.name}
+                    </span>
                   </div>
                 </div>
-                <div className="lg:col-span-6 p-6 sm:p-10">
-                  <h2 className="font-display text-2xl sm:text-3xl text-white tracking-[-0.01em]">{s.name}</h2>
-                  <p className="mt-2 text-[var(--w-silver-500)]">{s.tagline}</p>
+
+                <div className={`lg:col-span-7 p-6 sm:p-10 flex flex-col justify-center ${i % 2 === 1 ? "lg:order-1" : ""}`}>
+                  <div className="flex items-center gap-4">
+                    <span className="font-display display-outline text-4xl sm:text-5xl leading-none select-none shrink-0" aria-hidden>
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <h2 className="hidden lg:block font-display text-4xl xl:text-5xl text-chrome">{s.name}</h2>
+                    <h2 className="lg:hidden font-display text-3xl text-chrome">{s.name}</h2>
+                  </div>
+                  <p className="mt-3 text-[var(--w-silver-500)] text-base">{s.tagline}</p>
 
                   {s.tiers && (
-                    <div className="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
                       {s.tiers.map((t) => (
-                        <div key={t.label} className="rounded-xl bg-white/5 border border-white/10 p-3">
-                          <p className="text-xs text-white/60">{t.label}</p>
-                          <p className="font-mono text-sm text-white mt-1">{t.price}</p>
+                        <div key={t.label} className="rounded-xl bg-white/5 border border-white/10 p-3.5 transition-colors duration-200 hover:border-[var(--w-red-accent)]/40">
+                          <p className="text-xs uppercase tracking-[0.1em] text-white/55">{t.label}</p>
+                          <p className="font-mono text-sm text-white mt-1.5">{t.price}</p>
                         </div>
                       ))}
                     </div>
@@ -76,18 +91,22 @@ export default function Services() {
                     ))}
                   </div>
 
-                  <div className="mt-6 flex items-center justify-between border-t border-white/10 pt-5">
+                  <div className="mt-7 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-white/10 pt-6">
                     <div>
                       {s.price ? (
-                        <p className="font-mono text-lg text-white">{s.price}</p>
+                        <span className="inline-flex items-center rounded-full border border-[var(--w-red-accent)]/35 bg-[var(--w-red-accent)]/10 px-4 py-1.5 font-mono text-sm text-white">
+                          {s.price}
+                        </span>
                       ) : (
-                        <p className="font-mono text-base text-[var(--w-silver-500)]">Get a Quote</p>
+                        <span className="font-mono text-base text-[var(--w-silver-500)]">Quote Based</span>
                       )}
-                      <p className="text-xs text-white/40 mt-1">{s.priceNote}</p>
+                      <p className="text-xs text-white/40 mt-2">{s.priceNote}</p>
                     </div>
-                    <Link to="/contact" data-testid={`service-quote-${s.slug}`} className="inline-flex items-center gap-2 h-11 px-5 rounded-xl bg-[var(--w-red-accent)] text-white text-sm font-500 hover:bg-[var(--w-red-deep)] transition-colors shrink-0">
-                      Get a Quote <ArrowRight size={16} />
-                    </Link>
+                    <span className="shrink-0">
+                      <CtaPrimary to="/contact" size="sm" testId={`service-quote-${s.slug}`}>
+                        Get a Quote <ArrowRight size={15} />
+                      </CtaPrimary>
+                    </span>
                   </div>
                 </div>
               </div>
@@ -103,7 +122,7 @@ export default function Services() {
           <div className="flex flex-wrap gap-3">
             {VEHICLE_TYPES.map((v, i) => (
               <Reveal key={v} delay={i * 0.03}>
-                <span className="inline-flex items-center rounded-full bg-white/5 border border-white/10 px-4 py-2 text-sm text-[var(--w-chrome-300)]">{v}</span>
+                <span className="inline-flex items-center rounded-full bg-white/5 border border-white/10 px-4 py-2 text-sm text-[var(--w-chrome-300)] transition-colors duration-200 hover:border-[var(--w-red-accent)]/40">{v}</span>
               </Reveal>
             ))}
           </div>
@@ -115,9 +134,9 @@ export default function Services() {
       <section className="bg-[var(--w-black-950)] py-16 lg:py-20">
         <div className="container-w text-center">
           <p className="font-mono text-xs uppercase tracking-[0.28em] text-[var(--w-silver-500)] mb-8">Materials & Brands</p>
-          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
+          <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
             {BRANDS.map((b) => (
-              <span key={b} className="font-display text-xl sm:text-2xl text-white/40 hover:text-white transition-colors">{b}</span>
+              <span key={b} className="font-display text-2xl sm:text-3xl text-white/30 hover:text-white transition-colors duration-300">{b}</span>
             ))}
           </div>
           <p className="mt-6 text-sm text-[var(--w-silver-500)]">Special materials and brands are available upon request.</p>
@@ -127,11 +146,11 @@ export default function Services() {
       {/* CTA */}
       <section className="bg-[var(--w-black-975)] py-20 border-t border-white/10">
         <div className="container-w text-center max-w-2xl">
-          <h2 className="font-display text-3xl sm:text-4xl text-white">Not sure what your vehicle needs?</h2>
-          <p className="mt-3 text-[var(--w-silver-500)]">Send us the details and we will recommend the right approach and give you a quote.</p>
-          <div className="mt-7 flex flex-col sm:flex-row justify-center gap-3">
-            <Link to="/contact" className="inline-flex items-center justify-center gap-2 h-12 px-6 rounded-xl bg-[var(--w-red-accent)] text-white font-500 hover:bg-[var(--w-red-deep)] transition-colors">Get a Quote <ArrowRight size={18} /></Link>
-            <a href={LINKS.whatsapp} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 h-12 px-6 rounded-xl border border-white/15 text-white hover:bg-white/5 transition-colors"><MessageCircle size={18} className="text-[#25D366]" /> WhatsApp Us</a>
+          <h2 className="font-display text-4xl sm:text-5xl text-chrome">Not sure what your vehicle needs?</h2>
+          <p className="mt-4 text-[var(--w-silver-500)]">Send us the details and we will recommend the right approach and give you a quote.</p>
+          <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
+            <CtaPrimary to="/contact" testId="services-cta-quote">Get a Quote <ArrowRight size={17} /></CtaPrimary>
+            <CtaWhatsApp testId="services-cta-whatsapp">WhatsApp Us</CtaWhatsApp>
           </div>
         </div>
       </section>

@@ -15,7 +15,7 @@ export const Footer = () => {
       <div className="container-w py-14 lg:py-20">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
           <div className="sm:col-span-2 lg:col-span-1">
-            <img src={ASSETS.logo} alt={`${BUSINESS.name} logo`} className="h-10 w-auto" />
+            <img src={ASSETS.logo} alt={`${BUSINESS.name} logo`} className="h-12 w-auto" />
             <p className="mt-4 text-sm text-[var(--w-silver-500)] max-w-xs leading-relaxed">
               Premium automotive customization, protection, styling and performance in {BUSINESS.region}.
             </p>
@@ -90,8 +90,8 @@ export const Footer = () => {
             <p className="font-display text-xl sm:text-2xl text-white">Ready to build something that stands out?</p>
             <p className="text-sm text-[var(--w-silver-500)] mt-1">Mobile service may be available upon request for an additional fee.</p>
           </div>
-          <Link to="/contact" data-testid="footer-get-a-quote" className="inline-flex items-center gap-2 h-12 px-6 rounded-xl bg-[var(--w-red-accent)] text-white font-500 hover:bg-[var(--w-red-deep)] transition-colors shrink-0">
-            Get a Quote <ArrowUpRight size={18} />
+          <Link to="/contact" data-testid="footer-get-a-quote" className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full h-12 px-7 text-[13px] font-semibold uppercase tracking-[0.12em] bg-[var(--w-red-accent)] text-white shadow-[0_0_0_1px_rgba(225,6,0,0.45),inset_0_1px_0_rgba(255,255,255,0.28),0_12px_40px_rgba(225,6,0,0.22)] hover:bg-[#FF1A12] active:scale-[0.97] transition-[background-color,box-shadow,transform] duration-200 shrink-0">
+            Get a Quote <ArrowUpRight size={17} />
           </Link>
         </div>
 

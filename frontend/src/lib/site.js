@@ -11,6 +11,7 @@ export const BUSINESS = {
   phoneDisplay: "(647) 482-1403",
   phoneRaw: "+16474821403",
   email: "wraptasticautocustoms@gmail.com",
+  instagramHandle: "@the.wraptastic",
 };
 
 const WA_MESSAGE =
@@ -26,13 +27,21 @@ export const LINKS = {
 };
 
 export const ASSETS = {
-  logo: "/assets/logo.png",
-  viperVideo: "/assets/viper.mp4",
+  logo: "/assets/logo-transparent.png",
+  logoBadge: "/assets/logo.png",
+  viperVideo: "/assets/viper-enhanced.mp4",
   viperPoster: "/assets/viper-poster.jpg",
-  corvetteVideo: "/assets/corvette.mp4",
+  corvetteVideo: "/assets/corvette-enhanced.mp4",
   corvettePoster: "/assets/corvette-poster.jpg",
   teslaPurple: "/assets/tesla-purple.png",
   corvetteGreen: "/assets/corvette-green.png",
+  viperStill: "/assets/viper-still.png",
+  durangoBlack: "/assets/durango-black.png",
+  infinitiBlack: "/assets/infiniti-black.png",
+  corvetteWheel: "/assets/corvette-wheel.png",
+  brandFreshener: "/assets/brand-freshener.png",
+  wheelSpin: "/assets/wheel-spin.png",
+  racingStripes: "/assets/racing-stripes.jpg",
 };
 
 export const NAV = [
@@ -74,11 +83,11 @@ export const SERVICES = [
   {
     slug: "ceramic-coating",
     name: "Ceramic Coating",
-    tagline: "Deep gloss and long-term protection.",
+    tagline: "Deep gloss, hydrophobic beading and long-term protection.",
     price: "Starting at $249+",
     priceNote: "Final pricing depends on vehicle and service requirements.",
     tags: ["Hydrophobic", "UV resistant", "Enhanced gloss"],
-    image: ASSETS.corvettePoster,
+    image: ASSETS.infinitiBlack,
     category: "Ceramic",
   },
   {
@@ -88,7 +97,7 @@ export const SERVICES = [
     price: "Starting at $199+",
     priceNote: "Nano Ceramic Tint. Lifetime warranty.",
     tags: ["Nano ceramic", "Lifetime warranty", "Heat rejection"],
-    image: ASSETS.viperPoster,
+    image: ASSETS.durangoBlack,
     category: "Tint",
     highlight: "Lifetime Warranty",
   },
@@ -109,7 +118,7 @@ export const SERVICES = [
     price: null,
     priceNote: "Pricing varies by vehicle and scope of work.",
     tags: ["Wheels", "Trim", "Durable"],
-    image: ASSETS.teslaPurple,
+    image: ASSETS.corvetteWheel,
     category: "Other",
   },
   {
@@ -119,7 +128,7 @@ export const SERVICES = [
     price: null,
     priceNote: "Pricing varies by vehicle and scope of work.",
     tags: ["Custom layout", "Precision"],
-    image: ASSETS.viperPoster,
+    image: ASSETS.racingStripes,
     category: "Other",
   },
   {
@@ -129,7 +138,7 @@ export const SERVICES = [
     price: null,
     priceNote: "Pricing varies by vehicle and scope of work.",
     tags: ["Performance", "Custom"],
-    image: ASSETS.viperPoster,
+    image: ASSETS.corvettePoster,
     category: "Performance",
   },
   {
@@ -139,7 +148,7 @@ export const SERVICES = [
     price: null,
     priceNote: "Pricing varies by vehicle and scope of work.",
     tags: ["Styling", "Cohesive look"],
-    image: ASSETS.corvetteGreen,
+    image: ASSETS.infinitiBlack,
     category: "Other",
   },
   {
@@ -149,7 +158,7 @@ export const SERVICES = [
     price: null,
     priceNote: "Pricing varies by vehicle and scope of work.",
     tags: ["Custom", "Performance"],
-    image: ASSETS.viperPoster,
+    image: ASSETS.viperStill,
     category: "Performance",
   },
 ];
@@ -192,12 +201,30 @@ export const GALLERY = [
     size: "tall",
   },
   {
+    id: "viper-still",
+    type: "image",
+    src: ASSETS.viperStill,
+    title: "Dodge Viper RT/10",
+    caption: "Iconic red, dusk feature shoot",
+    categories: ["Performance", "Paint Correction"],
+    size: "wide",
+  },
+  {
     id: "tesla-purple",
     type: "image",
     src: ASSETS.teslaPurple,
     title: "Tesla Model Y",
     caption: "Midnight purple color-change wrap",
     categories: ["Wraps"],
+    size: "wide",
+  },
+  {
+    id: "durango-black",
+    type: "image",
+    src: ASSETS.durangoBlack,
+    title: "Dodge Durango R/T",
+    caption: "Satin black wrap, murdered-out",
+    categories: ["Wraps", "Tint"],
     size: "wide",
   },
   {
@@ -208,7 +235,16 @@ export const GALLERY = [
     title: "Chevrolet Corvette C8",
     caption: "Gloss green wrap in motion",
     categories: ["Wraps", "Performance"],
-    size: "wide",
+    size: "tall",
+  },
+  {
+    id: "infiniti-black",
+    type: "image",
+    src: ASSETS.infinitiBlack,
+    title: "Infiniti Q50",
+    caption: "Gloss black, ceramic beading in the rain",
+    categories: ["Ceramic", "Tint"],
+    size: "tall",
   },
   {
     id: "corvette-detail",
@@ -219,9 +255,35 @@ export const GALLERY = [
     categories: ["Wraps", "Paint Correction"],
     size: "tall",
   },
+  {
+    id: "corvette-wheel",
+    type: "image",
+    src: ASSETS.corvetteWheel,
+    title: "Corvette C8 Wheel",
+    caption: "Gloss black wheel, orange calipers",
+    categories: ["Other", "Performance"],
+    size: "tall",
+  },
+  {
+    id: "brand-freshener",
+    type: "image",
+    src: ASSETS.brandFreshener,
+    title: "Wraptastic Details",
+    caption: "It is the little things",
+    categories: ["Other"],
+    size: "tall",
+  },
 ];
 
 export const FEATURED = [
+  {
+    id: "viper",
+    title: "Dodge Viper RT/10",
+    subtitle: "Iconic Red — Feature Shoot",
+    desc: "A legend kept flawless. Paint correction, protection and a cinematic dusk shoot that shows every curve the way it deserves.",
+    image: ASSETS.viperStill,
+    tags: ["Paint Correction", "Detailing"],
+  },
   {
     id: "tesla",
     title: "Tesla Model Y",
@@ -238,6 +300,25 @@ export const FEATURED = [
     image: ASSETS.corvetteGreen,
     tags: ["Vinyl Wrap", "Ceramic Coating"],
   },
+  {
+    id: "durango",
+    title: "Dodge Durango R/T",
+    subtitle: "Satin Black — Murdered Out",
+    desc: "Full satin black transformation with tinted glass. Stealth presence with a finish that swallows light and turns heads.",
+    image: ASSETS.durangoBlack,
+    tags: ["Vinyl Wrap", "Window Tint"],
+  },
+];
+
+// Curated Instagram grid (real business media). If you connect a live feed
+// (e.g. Behold.so), set REACT_APP_INSTAGRAM_FEED_URL and it auto-updates.
+export const IG_POSTS = [
+  { id: "ig-1", image: ASSETS.viperStill, caption: "Dodge Viper RT/10 — feature shoot" },
+  { id: "ig-2", image: ASSETS.corvetteGreen, caption: "Corvette C8 gloss green" },
+  { id: "ig-3", image: ASSETS.teslaPurple, caption: "Tesla Model Y midnight purple" },
+  { id: "ig-4", image: ASSETS.durangoBlack, caption: "Durango R/T satin black" },
+  { id: "ig-5", image: ASSETS.infinitiBlack, caption: "Infiniti Q50 in the rain" },
+  { id: "ig-6", image: ASSETS.brandFreshener, caption: "Wraptastic details" },
 ];
 
 export const REVIEWS = [

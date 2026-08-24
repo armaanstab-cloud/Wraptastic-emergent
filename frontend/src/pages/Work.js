@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Instagram, ArrowRight } from "lucide-react";
 import { WorkGalleryMasonry } from "@/components/WorkGalleryMasonry";
+import { InstagramFeed } from "@/components/InstagramFeed";
 import { Reveal } from "@/components/Reveal";
 import { LINKS, ASSETS } from "@/lib/site";
 
@@ -35,7 +36,13 @@ export default function Work() {
         </div>
       </section>
 
-      <section className="bg-[var(--w-black-975)] py-16 border-t border-white/10">
+      <section className="bg-[var(--w-black-975)] py-16 lg:py-24 border-t border-white/10">
+        <div className="container-w">
+          <InstagramFeed />
+        </div>
+      </section>
+
+      <section className="bg-[var(--w-black-950)] py-16 border-t border-white/10">
         <div className="container-w flex flex-col sm:flex-row items-center justify-between gap-6">
           <div>
             <h2 className="font-display text-2xl sm:text-3xl text-white">See more on social</h2>

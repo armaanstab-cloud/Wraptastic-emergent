@@ -36,6 +36,17 @@ All vehicle photos and videos live in `frontend/public/assets`. To add more
 gallery work, drop files into that folder and add entries to the `GALLERY`
 array in `frontend/src/lib/site.js`. No code changes needed elsewhere.
 
+## Instagram feed (optional live mode)
+The Instagram section shows a curated grid of real work by default. To make it
+update automatically from the real Instagram account:
+
+1. Create a free feed at https://behold.so (log in with the shop's Instagram),
+   which returns a JSON feed URL for `@the.wraptastic`.
+2. Add it to the frontend environment:
+   `REACT_APP_INSTAGRAM_FEED_URL=https://feeds.behold.so/XXXX`
+3. Redeploy. The grid will automatically switch to the latest live posts
+   (photos and reel thumbnails), each linking to the original post.
+
 ## Business content
 All contact info, services, pricing, reviews, brands and policies are in a
 single file: `frontend/src/lib/site.js`.

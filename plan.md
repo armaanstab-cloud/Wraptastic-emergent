@@ -1,16 +1,20 @@
 # plan.md
 
 ## 1) Objectives
-- Deliver a production-ready, cinematic premium website for **WRAPTASTIC AUTO CUSTOMS** using **React (CRA + craco), Tailwind, shadcn/ui, Framer Motion**, plus an optional **FastAPI + MongoDB** backend.
-- Preserve authenticity of all vehicles and wraps. Real customer media is the product.
-- Provide high-conversion UX:
-  - Persistent **Get a Quote** CTA
-  - Floating **WhatsApp** button with a **prefilled message**
-  - Working links for **Google Business Profile**, **Instagram**, **TikTok**, **tel:** and **mailto:**
-- Provide a portable quote form email solution compatible with static hosting (Netlify): **Web3Forms**.
-- Ensure reliability: Quote requests are stored in **MongoDB** even if email delivery is not configured.
+- Deliver a **production-ready, cinematic, premium (10/10)** website for **WRAPTASTIC AUTO CUSTOMS** using **React (CRA + craco), Tailwind, shadcn/ui, Framer Motion** with an optional **FastAPI + MongoDB** backend for quote logging.
+- Complete a **major redesign / visual overhaul** (typography, motion system, premium details, 3D depth) while keeping:
+  - **Hero + Gallery** showcasing **real Wraptastic business work** (no AI-generated replacement cars).
+  - Brand palette: **deep blacks / charcoal**, **metallic silver/chrome**, **subtle red accent**.
+- Keep conversion UX strong and real:
+  - Premium **Get a Quote** CTA and persistent **WhatsApp** CTA (prefilled message).
+  - Working links: Google Business Profile, Instagram, TikTok, tel/mailto.
+- Maintain portability to **Netlify** (SPA redirects) and avoid breaking static deploy compatibility.
+- Quote form must send emails via **Web3Forms** (once key is provided) to `wraptasticautocustoms@gmail.com`, and still **log to MongoDB** for redundancy.
+- Improve media quality:
+  - Enhance the vertical “Viper/Dodge” hero video (source ~464×832) with subtle dark tint + cinematic grade, reduce distracting background presence, preserve car authenticity.
+  - Enhance and integrate uploaded images (preserve vehicle; background effects allowed).
 
-**Current status:** MVP delivered. Phase 1 POC complete. Phase 2 full site complete. End-to-end tests passed (Backend 6/6, Frontend 8/8).
+**Current status:** ✅ Premium Cinematic Overhaul **completed**, **tested 100%** (`/app/test_reports/iteration_2.json`). Remaining items are **user-config + future content drops**.
 
 ---
 
@@ -21,150 +25,178 @@
 
 **Status:** ✅ Completed
 
-**User stories (POC)**
-1. As an admin, I can enhance a real photo and verify the car details are unchanged.
-2. As an admin, I can submit a quote payload and confirm it is saved in MongoDB.
-3. As an admin, I can validate a portable email delivery path (Web3Forms) for Netlify.
-
 **Completed steps**
-1. Implemented `poc/phase1_poc.py`:
-   - Downloads the 2 still photos (Tesla + Corvette detail) from provided URLs.
-   - Calls Nano Banana (Gemini image edit) to apply a premium dark cinematic grade.
-   - Saves enhanced outputs to `/app/poc/out/`.
+1. Implemented Nano Banana image enhancement POC (preserving real vehicles).
 2. Validated quote pipeline:
-   - Inserts sample quote into MongoDB.
-   - Confirms Web3Forms payload structure.
-3. Result:
-   - AI enhancement **preserved exact vehicles** and improved cinematic look.
-   - MongoDB persistence works.
-
-**Env used**
-- `EMERGENT_LLM_KEY` (provided)
-- `MONGO_URL` / `DB_NAME` (already in project)
-- Web3Forms key intentionally optional (see Phase 2).
+   - Saves to MongoDB.
+   - Web3Forms payload structure confirmed.
 
 ---
 
 ### Phase 2: V1 App Development (build around proven core)
-**Goal:** Build the full cinematic site with all pages, motion, real media, and functional quote capture.
+**Goal:** Full site built with pages, motion, real media, and functional quote capture.
+
+**Status:** ✅ Completed (superseded by redesign request)
+
+**Delivered**
+- Pages: Home, Services, Work, About, Reviews, Contact.
+- Gallery: filters + masonry + lightbox.
+- Quote form: Web3Forms (when key set) + MongoDB backup.
+- WhatsApp CTA + SEO + Netlify portability + tests passed.
+
+---
+
+### Phase 3: Premium Cinematic Overhaul (MAJOR REDESIGN)
+**Goal:** Raise visual quality from **4/10 → 10/10** with a premium motion/typography/art-direction system.
+
+**Status:** ✅ Completed (100% tested)
+
+**User decisions locked in (implemented)**
+- Creative freedom used for premium elements, while **hero + gallery remain real business work**.
+- Replaced scroll animation with a signature **spinning wheel + speed streaks set-piece**.
+- Headings/subheadings updated to match aggressive logo vibe (display font), while keeping readability.
+- Navbar logo: **bigger** and **transparent** (black box removed).
+- WhatsApp + Get a Quote buttons: redesigned to look **premium/fancy**.
+- Reviews: **infinite marquee belt** with **manual drag/scroll**.
+- Instagram feed section implemented with a clear “live feed” path.
+- Viper/Dodge video: enhanced quality + subtle dark tint + vignette; background presence minimized via grading.
+- New images: enhanced and integrated (Durango, Infiniti Q50, Corvette wheel, Viper still, air freshener).
+- Racing stripes: sourced license-safe stock photo for service representation.
+- Services page: **car pictures next to service name**.
+- Credits used efficiently (batch enhancement pipeline).
+
+#### Phase 3A: Design system refresh (typography + components + motion)
+**Status:** ✅ Completed
+
+**Delivered**
+1. **Typography upgrade**
+   - Display: **Road Rage** for headings/subheadings (aggressive logo-like vibe)
+   - Body: **Barlow** (premium readable)
+   - Mono: **IBM Plex Mono** (microcopy)
+2. **Premium component kit**
+   - New pill CTAs: `CtaPrimary`, `CtaChrome`, `CtaWhatsApp` with chrome edges + shine sweep + tactile states.
+   - Card system: hairline borders, glass blur, sheen sweep.
+   - Refined tokens in `index.css` (chrome gradients, red glow, noise overlay, marquee mask).
+3. **Motion system**
+   - Upgraded hero parallax and section reveals.
+   - Reduced-motion fallbacks for the wheel set-piece and marquee.
+
+**Acceptance criteria:** ✅ Met (premium within first screen; coherent system)
+
+#### Phase 3B: Asset pipeline (image/video enhancement + logo transparency)
+**Status:** ✅ Completed
+
+**Delivered**
+1. **Logo transparency**
+   - Created `logo-transparent.png` (black box removed) and updated navbar sizing.
+2. **Enhanced images (Nano Banana)**
+   - `viper-still.png` (residential background minimized; vehicle preserved)
+   - `durango-black.png` (cinematic grade; lifted to avoid crushing blacks)
+   - `infiniti-black.png`
+   - `corvette-wheel.png`
+   - `brand-freshener.png`
+3. **Video enhancement (ffmpeg)**
+   - `viper-enhanced.mp4` (2× upscale + denoise + sharpen + grade + subtle dark tint + vignette)
+   - `corvette-enhanced.mp4`
+   - Posters: `viper-poster.jpg`, `corvette-poster.jpg`
+4. **Wheel spin asset**
+   - `wheel-spin.png` generated straight-on (shop’s real wheel), circular alpha mask for smooth spin.
+5. **Racing stripes**
+   - `racing-stripes.jpg` sourced and integrated.
+6. **Fixes / hygiene**
+   - Fixed swapped `tesla-purple.png` / `corvette-green.png` contents from earlier iteration.
+   - Cleaned raw uploads from `public/assets` after enhancement.
+
+**Acceptance criteria:** ✅ Met (cohesive, high-end media; video looks intentional)
+
+#### Phase 3C: Frontend rebuild (Home + Services + Reviews + Instagram)
+**Status:** ✅ Completed
+
+**Delivered**
+- **Home**
+  - New `CinematicHero` with chrome display headline, improved CTA cluster, stat chips.
+  - New `WheelSpeedScroll` set-piece (240vh pinned): wheel translates + rotates with speed streaks and large background message.
+  - Featured Builds, Why Us, Brands marquee, Reviews belt, Instagram grid, final CTA.
+- **Reviews**
+  - `ReviewBelt` infinite auto-scroll, hover pause, and fully draggable.
+- **Instagram**
+  - `InstagramFeed` curated grid by default.
+  - Optional live mode via env var `REACT_APP_INSTAGRAM_FEED_URL` (e.g., Behold JSON feed).
+- **Services**
+  - Image next to service name for every service section.
+  - Pricing correctness preserved:
+    - PPF **Starting at $1,999+** (plus tiers)
+    - Tint **Starting at $199+**
+    - Ceramic **Starting at $249+**
+- **Work page**
+  - Gallery preserved (real work) + Instagram section added.
+- **Global UI**
+  - Premium `FloatingWhatsApp` pill.
+  - Removed old `ScrollVehicleTransition`.
+
+**Acceptance criteria:** ✅ Met (mobile-first, expensive CTAs, smooth belt, IG shipped)
+
+#### Phase 3D: Instagram “Live Feed” feasibility + requirements
+**Status:** ✅ Implemented (with clear requirements)
+
+**Reality check (still true)**
+- Instagram does **not** allow truly “no-auth” live fetching in production.
+
+**Shipped approach**
+- Curated grid works with **zero auth**.
+- Live updates supported via third-party feed URL:
+  - Set `REACT_APP_INSTAGRAM_FEED_URL` (recommended: Behold.so JSON feed)
+
+---
+
+### Phase 4: Testing, performance, and launch readiness
+**Goal:** Ensure redesign doesn’t regress functionality, SEO, or portability.
 
 **Status:** ✅ Completed
 
-**User stories (V1)**
-1. As a visitor, I immediately see a cinematic hero video and clear CTAs.
-2. As a mobile user, I can tap WhatsApp and open chat with a prefilled quote message.
-3. As a visitor, I can browse services and see correct “Starting at” pricing vs quote-only items.
-4. As a visitor, I can filter the Work gallery and view media in a lightbox.
-5. As a visitor, I can submit a quote request and see a clear success state.
-6. As the business, I can review quote submissions stored in MongoDB.
-
-**Delivered implementation**
-
-**Frontend (React CRA + craco)**
-1. Global design system implemented:
-   - Deep black/charcoal base, chrome/silver typography, controlled red accents.
-   - Chrome heading treatment applied selectively.
-   - Cinematic grading overlays and CSS video filters to keep backgrounds subdued.
-2. Pages delivered:
-   - Home, Services, Our Work, About, Reviews, Contact/Get a Quote.
-3. Home sections delivered:
-   - Hero (real Dodge Viper video)
-   - Brand intro
-   - Premium services grid
-   - Scroll-driven 2.5D vehicle transition
-   - Featured work
-   - Why Wraptastic
-   - Brands  materials
-   - Review belt
-   - Final CTA and footer
-4. Gallery delivered:
-   - Category filters, masonry layout, mixed image/video support.
-   - Lightbox dialog for fullscreen viewing.
-   - Config-driven structure ready for more media.
-5. Quote form delivered:
-   - Stores in backend MongoDB.
-   - Also submits directly to Web3Forms when `REACT_APP_WEB3FORMS_KEY` is set.
-   - Honeypot field included.
-6. WhatsApp delivered everywhere:
-   - Prefilled message link: `https://wa.me/16474821403?text=<urlencoded>`
-   - Present in nav, hero, contact, footer, and floating button.
-7. SEO + portability:
-   - Meta tags, OpenGraph, JSON-LD LocalBusiness.
-   - README for portability and Netlify deployment.
-   - Netlify SPA `_redirects` file added.
-
-**Backend (FastAPI + MongoDB)**
-1. Endpoints delivered:
-   - `POST /api/quotes` with validation and honeypot rejection.
-   - `GET /api/quotes` for stored submissions.
-   - `GET /api/health` for DB connectivity.
-2. Storage:
-   - `quotes` collection with created timestamp.
-
-**Testing results**
-- ✅ Backend: 6/6 passed
-- ✅ Frontend: 8/8 passed
-- ✅ No critical issues reported
-
----
-
-### Phase 3: Polish, performance, and hardening
-**Goal:** Optional follow-up improvements, content expansion, and operational readiness.
-
-**Status:** ⏳ Optional (MVP already delivered)
-
-**User stories (Polish)**
-1. As a user on slow mobile, the site loads quickly and videos do not block interactivity.
-2. As a user, animations feel premium and never distracting.
-3. As a visitor, I can always find the Get a Quote CTA without scrolling.
-4. As the business, I can rely on quote submissions even if Web3Forms is down.
-
-**Recommended steps (optional)**
-1. Performance hardening:
-   - Optional conversion of posters to WebP/AVIF.
-   - Additional video compression ladder if new 4K assets are heavy.
-   - Fine-tune lazy loading thresholds.
-2. Form resilience:
-   - Clearer UI copy indicating whether email delivery is configured.
-   - Optional retry logic for backend submission.
-3. Accessibility polish:
-   - Run automated a11y checks, verify focus rings, test reduced-motion paths.
-
-**Conclude Phase 3**
-- One full regression test across pages and mobile viewport emulation.
-
----
-
-### Phase 4: Content expansion and gallery scaling (post-V1)
-**Goal:** Scale up content as the full 4K media library is uploaded.
-
-**Status:** ⏳ Ready when assets arrive
-
-**User stories (Expansion)**
-1. As a visitor, I can browse many projects without performance drops.
-2. As the business, I can add new media by editing a single config file.
-3. As the business, I can feature or pin selected projects on Home.
-
-**Steps**
-1. Add new real photos/videos into `frontend/public/assets`.
-2. Append items in `frontend/src/lib/site.js` under `GALLERY`.
-3. Optionally add:
-   - More featured builds.
-   - Additional gallery sections (project writeups) if desired.
-   - Optional future Mongo-driven gallery model.
+**Delivered**
+1. Regression tests passed:
+   - Quote form → backend `/api/quotes` → MongoDB
+   - WhatsApp CTA
+   - Gallery filters + lightbox
+   - Mobile responsiveness
+2. Motion QA:
+   - Reduced motion fallbacks present
+   - Scroll set-piece performance verified
+3. Performance pass:
+   - Posters in place, lazy-loading preserved
+4. Updated screenshots captured (desktop + mobile)
 
 ---
 
 ## 3) Next Actions
-1. **User action:** Add `REACT_APP_WEB3FORMS_KEY` in the frontend environment to enable live email delivery to `wraptasticautocustoms@gmail.com`.
-2. **User action:** Upload the full 4K photo/video collection. Gallery is ready to accept more items.
-3. Optional: Add more featured projects and expand categories as content grows.
+1. **Web3Forms key (user action required) — Enable Email**
+   - Go to https://web3forms.com and create a free access key using
+     `wraptasticautocustoms@gmail.com`.
+   - Add it to your hosting environment (Netlify/Vercel/local CRA) as:
+     - `REACT_APP_WEB3FORMS_KEY=YOUR_KEY_HERE`
+   - Redeploy. Quote requests will email directly to that inbox.
+   - Note: without the key, the form still logs to MongoDB (backend) successfully.
+
+2. **Instagram live feed (optional user action)**
+   - Create a feed URL (recommended: https://behold.so) and set:
+     - `REACT_APP_INSTAGRAM_FEED_URL=https://feeds.behold.so/XXXX`
+   - Redeploy to enable live Instagram thumbnails and reel previews.
+
+3. **Asset uploads (user action, ongoing)**
+   - Continue uploading more real 4K photos/videos (5 at a time is fine).
+   - We will enhance + integrate by adding entries into `GALLERY` in `frontend/src/lib/site.js`.
 
 ---
 
 ## 4) Success Criteria
-- ✅ POC passed: AI enhancement preserved vehicles; Mongo insert works.
-- ✅ V1 site delivered: all pages present, premium styling, cinematic hero video, responsive excellence, working CTAs.
-- ✅ Quote flow: always stores in Mongo; emails send once Web3Forms key is set; clear user feedback states.
-- ✅ Gallery: filtering + lightbox + video support; structured for easy future media additions.
-- ✅ SEO + schema present; no banned content (no street address, no fake claims, no em dashes).
+- ✅ Visual quality: premium cinematic look (target **10/10**) achieved.
+- ✅ Hero + gallery remain **authentic real business work** (no AI replacement vehicles).
+- ✅ Scroll set-piece: wheel/speed animation feels premium and smooth on mobile.
+- ✅ Navbar: larger transparent logo; CTAs look high-end.
+- ✅ Reviews belt: infinite marquee + manual user control.
+- ✅ Instagram section shipped with a clear path to “live” updates.
+- ✅ Quote flow works:
+  - Always logs to MongoDB.
+  - Emails send via Web3Forms once `REACT_APP_WEB3FORMS_KEY` is configured.
+- ✅ SEO + schema preserved; Netlify portability intact; no fake functionality.

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Road+Rage&family=Barlow:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -21,6 +21,17 @@
     --w-red-accent: #E10600;
     --w-red-deep: #B30500;
     --w-red-glow: #FF2A1A;
+
+    --font-display: 'Road Rage', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    --font-body: 'Barlow', ui-sans-serif, system-ui, sans-serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
+
+    --shadow-elev-1: 0 10px 30px rgba(0, 0, 0, 0.45);
+    --shadow-elev-2: 0 18px 60px rgba(0, 0, 0, 0.55);
+    --shadow-chrome: 0 0 0 1px rgba(215, 220, 228, 0.18), 0 18px 60px rgba(0, 0, 0, 0.55);
+
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
     --w-hero-vignette: radial-gradient(1200px 620px at 62% 55%, rgba(225, 6, 0, 0.14) 0%, rgba(225, 6, 0, 0.04) 32%, rgba(7, 7, 8, 0.0) 58%), radial-gradient(140% 120% at 50% 40%, rgba(5, 5, 6, 0.0) 30%, rgba(5, 5, 6, 0.55) 72%, rgba(5, 5, 6, 0.9) 100%), linear-gradient(180deg, rgba(5, 5, 6, 0.82) 0%, rgba(5, 5, 6, 0.35) 34%, rgba(7, 7, 8, 0.72) 74%, rgba(7, 7, 8, 0.98) 100%);
 
     /* shadcn tokens mapped to dark automotive palette */
@@ -59,16 +70,22 @@
     margin: 0;
     background: var(--w-black-950);
     color: var(--w-chrome-300);
-    font-family: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
   }
-  h1, h2, h3, h4, .font-display {
-    font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  h1, h2, .font-display {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: 0.015em;
+  }
+  h3, h4 {
+    font-family: var(--font-body);
+    font-weight: 700;
   }
   .font-mono {
-    font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
+    font-family: var(--font-mono);
   }
   ::selection {
     background: rgba(225, 6, 0, 0.35);
@@ -82,10 +99,13 @@
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.08), 0 12px 34px rgba(0, 0, 0, 0.55);
   }
   .text-chrome-red {
-    -webkit-text-stroke: 1px rgba(225, 6, 0, 0.32);
+    -webkit-text-stroke: 1px rgba(225, 6, 0, 0.35);
+  }
+  .display-outline {
+    color: transparent;
+    -webkit-text-stroke: 2px rgba(215, 220, 228, 0.22);
   }
   .container-w {
     max-width: 80rem;
@@ -99,8 +119,8 @@
   }
   .glass {
     background: rgba(7, 8, 10, 0.6);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
   }
   .hairline { border: 1px solid rgba(238, 241, 246, 0.10); }
   .red-glow {
@@ -132,10 +152,21 @@
   }
   .card-sheen:hover::after { left: 130%; }
   .cine-video {
-    filter: brightness(0.66) contrast(1.16) saturate(1.08);
+    filter: brightness(0.8) contrast(1.08) saturate(1.05);
   }
   .cine-video-soft {
-    filter: brightness(0.78) contrast(1.1) saturate(1.05);
+    filter: brightness(0.85) contrast(1.06) saturate(1.04);
+  }
+  .marquee-mask {
+    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  }
+  .logo-glow {
+    filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.6));
+    transition: filter 0.3s ease;
+  }
+  .logo-glow:hover {
+    filter: drop-shadow(0 0 16px rgba(215, 220, 228, 0.35));
   }
 }
 
@@ -153,14 +184,27 @@
 }
 .scroll-dot { animation: w-scroll-dot 2.2s ease-in-out infinite; }
 
-/* Light streaks for scroll transition */
-@keyframes w-streak {
-  0% { transform: translateX(-30%); opacity: 0; }
-  30% { opacity: 0.6; }
-  100% { transform: translateX(130%); opacity: 0; }
+/* Brand strip marquee */
+@keyframes w-marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
+.brand-marquee {
+  display: flex;
+  width: max-content;
+  animation: w-marquee 28s linear infinite;
+}
+.brand-marquee:hover { animation-play-state: paused; }
+
+/* WhatsApp pulse ring */
+@keyframes w-pulse-ring {
+  0% { transform: scale(1); opacity: 0.55; }
+  80% { transform: scale(1.45); opacity: 0; }
+  100% { transform: scale(1.45); opacity: 0; }
+}
+.wa-pulse { animation: w-pulse-ring 2.6s cubic-bezier(0.16, 1, 0.3, 1) infinite; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .scroll-dot { animation: none; }
+  .scroll-dot, .brand-marquee, .wa-pulse { animation: none; }
 }

@@ -32,7 +32,7 @@ export const SectionHeading = ({ eyebrow, title, chrome = true, align = "left", 
           <span className="font-mono text-xs uppercase tracking-[0.28em] text-[var(--w-silver-500)]">{eyebrow}</span>
         </div>
       )}
-      <h2 className={`font-display text-3xl sm:text-4xl lg:text-5xl font-600 tracking-[-0.02em] ${chrome ? "text-chrome" : "text-white"}`}>
+      <h2 className={`font-display text-4xl sm:text-5xl lg:text-6xl ${chrome ? "text-chrome" : "text-white"}`}>
         {title}
       </h2>
     </div>
