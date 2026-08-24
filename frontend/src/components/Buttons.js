@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { MessageCircle } from "lucide-react";
 import { LINKS } from "@/lib/site";
+import { useQuoteDialog } from "@/components/QuoteDialog";
 
 const SIZES = {
   sm: "h-10 px-5 text-[12px]",
@@ -27,27 +28,43 @@ const Wrapper = ({ to, href, className, children, testId, onClick, ariaLabel }) 
       </Link>
     );
   }
+  if (href) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" data-testid={testId} className={className} onClick={onClick} aria-label={ariaLabel}>
+        {children}
+      </a>
+    );
+  }
   return (
-    <a href={href} target="_blank" rel="noopener noreferrer" data-testid={testId} className={className} onClick={onClick} aria-label={ariaLabel}>
+    <button type="button" data-testid={testId} className={className} onClick={onClick} aria-label={ariaLabel}>
       {children}
-    </a>
+    </button>
   );
 };
 
-// Red lacquer primary CTA with chrome edge + specular sweep
-export const CtaPrimary = ({ to, href, children, testId, size = "md", onClick, ariaLabel }) => (
-  <Wrapper
-    to={to}
-    href={href}
-    testId={testId}
-    onClick={onClick}
-    ariaLabel={ariaLabel}
-    className={`${BASE} ${SIZES[size]} bg-[var(--w-red-accent)] text-white shadow-[0_0_0_1px_rgba(225,6,0,0.45),inset_0_1px_0_rgba(255,255,255,0.28),0_12px_40px_rgba(225,6,0,0.22)] hover:bg-[#FF1A12] hover:shadow-[0_0_0_1px_rgba(255,42,26,0.6),inset_0_1px_0_rgba(255,255,255,0.32),0_16px_54px_rgba(225,6,0,0.36)]`}
-  >
-    <Shine />
-    <span className="relative z-10 inline-flex items-center gap-2">{children}</span>
-  </Wrapper>
-);
+// Red lacquer primary CTA with chrome edge + specular sweep.
+// Pass `quote` to make it open the global Get a Quote popup instead of navigating.
+export const CtaPrimary = ({ to, href, children, testId, size = "md", onClick, ariaLabel, quote = false }) => {
+  const { openQuote } = useQuoteDialog();
+  const isQuote = quote;
+  const handleClick = (e) => {
+    if (isQuote) openQuote();
+    if (onClick) onClick(e);
+  };
+  return (
+    <Wrapper
+      to={isQuote ? undefined : to}
+      href={isQuote ? undefined : href}
+      testId={testId}
+      onClick={handleClick}
+      ariaLabel={ariaLabel}
+      className={`${BASE} ${SIZES[size]} bg-[var(--w-red-accent)] text-white shadow-[0_0_0_1px_rgba(225,6,0,0.45),inset_0_1px_0_rgba(255,255,255,0.28),0_12px_40px_rgba(225,6,0,0.22)] hover:bg-[#FF1A12] hover:shadow-[0_0_0_1px_rgba(255,42,26,0.6),inset_0_1px_0_rgba(255,255,255,0.32),0_16px_54px_rgba(225,6,0,0.36)]`}
+    >
+      <Shine />
+      <span className="relative z-10 inline-flex items-center gap-2">{children}</span>
+    </Wrapper>
+  );
+};
 
 // Chrome glass secondary CTA
 export const CtaChrome = ({ to, href, children, testId, size = "md", onClick, ariaLabel }) => (

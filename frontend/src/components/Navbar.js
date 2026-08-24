@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { motion, useScroll, useSpring } from "framer-motion";
+import { Menu, X, Instagram, Phone } from "lucide-react";
 import { NAV, LINKS, ASSETS, BUSINESS } from "@/lib/site";
 import { CtaPrimary, CtaWhatsApp } from "@/components/Buttons";
+import { useQuoteDialog } from "@/components/QuoteDialog";
 import {
   Sheet,
   SheetContent,
@@ -10,10 +12,20 @@ import {
   SheetClose,
 } from "@/components/ui/sheet";
 
+const TikTokIcon = (props) => (
+  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true" {...props}>
+    <path d="M16.5 3c.3 2.2 1.6 3.9 3.8 4.2v2.6c-1.3.1-2.5-.2-3.8-.9v5.9c0 3.4-2.6 5.7-5.8 5.7-3 0-5.2-2.2-5.2-5 0-2.9 2.3-5 5.2-5 .4 0 .8 0 1.2.1v2.8c-.4-.1-.8-.2-1.2-.2-1.4 0-2.4 1-2.4 2.4 0 1.4 1 2.3 2.3 2.3 1.4 0 2.5-1 2.5-2.8V3h3.4z" />
+  </svg>
+);
+
 export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const location = useLocation();
+  const { openQuote } = useQuoteDialog();
+
+  const { scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, { stiffness: 140, damping: 30, restDelta: 0.001 });
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -67,10 +79,30 @@ export const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-2.5 sm:gap-3">
+          <a
+            href={LINKS.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Wraptastic on Instagram"
+            data-testid="nav-instagram-button"
+            className="hidden xl:inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-[var(--w-silver-500)] hover:text-white hover:border-white/35 transition-colors duration-200"
+          >
+            <Instagram size={16} />
+          </a>
+          <a
+            href={LINKS.tiktok}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Wraptastic on TikTok"
+            data-testid="nav-tiktok-button"
+            className="hidden xl:inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-[var(--w-silver-500)] hover:text-white hover:border-white/35 transition-colors duration-200"
+          >
+            <TikTokIcon />
+          </a>
           <span className="hidden md:inline-flex">
             <CtaWhatsApp size="sm" testId="nav-whatsapp-button">WhatsApp</CtaWhatsApp>
           </span>
-          <CtaPrimary to="/contact" size="sm" testId="nav-get-a-quote-button">
+          <CtaPrimary onClick={openQuote} size="sm" testId="nav-get-a-quote-button">
             Get a Quote
           </CtaPrimary>
 
@@ -110,13 +142,32 @@ export const Navbar = () => {
                 ))}
                 <div className="mt-5 grid gap-3">
                   <CtaWhatsApp testId="mobile-nav-whatsapp-button">WhatsApp Us</CtaWhatsApp>
-                  <CtaPrimary to="/contact" testId="mobile-nav-quote-button">Get a Quote</CtaPrimary>
+                  <CtaPrimary onClick={() => { setOpen(false); openQuote(); }} testId="mobile-nav-quote-button">Get a Quote</CtaPrimary>
+                </div>
+                <div className="mt-6 flex items-center justify-center gap-3">
+                  <a href={LINKS.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" data-testid="mobile-nav-instagram" className="h-11 w-11 inline-flex items-center justify-center rounded-full border border-white/15 text-white hover:bg-white/5 transition-colors">
+                    <Instagram size={18} />
+                  </a>
+                  <a href={LINKS.tiktok} target="_blank" rel="noopener noreferrer" aria-label="TikTok" data-testid="mobile-nav-tiktok" className="h-11 w-11 inline-flex items-center justify-center rounded-full border border-white/15 text-white hover:bg-white/5 transition-colors">
+                    <TikTokIcon />
+                  </a>
+                  <a href={LINKS.phone} aria-label="Call us" data-testid="mobile-nav-phone" className="h-11 w-11 inline-flex items-center justify-center rounded-full border border-white/15 text-white hover:bg-white/5 transition-colors">
+                    <Phone size={17} />
+                  </a>
                 </div>
               </div>
             </SheetContent>
           </Sheet>
         </div>
       </nav>
+
+      {/* Scroll progress line */}
+      <motion.div
+        data-testid="nav-scroll-progress"
+        aria-hidden
+        style={{ scaleX: progress }}
+        className="absolute bottom-0 left-0 right-0 h-[2.5px] origin-left bg-gradient-to-r from-[var(--w-red-deep)] via-[var(--w-red-accent)] to-[var(--w-red-glow)] shadow-[0_0_12px_rgba(225,6,0,0.5)]"
+      />
     </header>
   );
 };

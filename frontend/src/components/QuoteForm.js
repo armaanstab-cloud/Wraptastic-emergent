@@ -35,7 +35,7 @@ const inputClass =
   "bg-white/5 border-white/10 text-white placeholder:text-white/35 focus-visible:ring-2 focus-visible:ring-[rgba(225,6,0,0.55)] focus-visible:ring-offset-0 h-11";
 const labelClass = "text-xs text-white/70 tracking-[0.12em] uppercase mb-1.5 block";
 
-export const QuoteForm = () => {
+export const QuoteForm = ({ bare = false }) => {
   const [form, setForm] = useState(emptyForm);
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
@@ -151,7 +151,7 @@ export const QuoteForm = () => {
   }
 
   return (
-    <form data-testid="quote-form" onSubmit={submit} className="rounded-2xl hairline bg-[var(--w-charcoal-900)] p-6 sm:p-8">
+    <form data-testid="quote-form" onSubmit={submit} className={bare ? "" : "rounded-2xl hairline bg-[var(--w-charcoal-900)] p-6 sm:p-8"}>
       {/* Honeypot (hidden from humans) */}
       <input
         type="text"

@@ -54,7 +54,7 @@ export const CinematicHero = () => {
           <div className="mb-6 flex items-center gap-3">
             <span className="h-px w-10 bg-[var(--w-red-accent)]" />
             <span className="font-mono text-xs uppercase tracking-[0.3em] text-[var(--w-chrome-300)]/80">
-              Brampton & the GTA — Premium Auto Studio
+              Brampton &amp; the GTA · Premium Auto Studio
             </span>
           </div>
 
@@ -67,11 +67,11 @@ export const CinematicHero = () => {
             Wrap It <span className="text-[var(--w-red-glow)]">•</span> Protect It <span className="text-[var(--w-red-glow)]">•</span> Stand Out
           </p>
           <p className="mt-3 max-w-xl text-base sm:text-lg text-[var(--w-silver-500)]">
-            Premium wraps, paint protection, ceramic coating, tint and performance — built to stand out.
+            Premium wraps, paint protection, ceramic coating, tint and performance, built to stand out.
           </p>
 
           <div className="mt-9 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
-            <CtaPrimary to="/contact" size="lg" testId="hero-get-a-quote-button">
+            <CtaPrimary quote size="lg" testId="hero-get-a-quote-button">
               Get a Quote <ArrowRight size={18} />
             </CtaPrimary>
             <CtaWhatsApp size="lg" testId="hero-whatsapp-button">WhatsApp Us</CtaWhatsApp>

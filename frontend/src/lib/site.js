@@ -8,6 +8,7 @@ export const BUSINESS = {
   shortName: "Wraptastic",
   city: "Brampton, Ontario",
   region: "Brampton & the GTA",
+  address: "46 Village Lake Crescent, Brampton, ON L6S 6K6",
   phoneDisplay: "(647) 482-1403",
   phoneRaw: "+16474821403",
   email: "wraptasticautocustoms@gmail.com",
@@ -24,6 +25,7 @@ export const LINKS = {
   instagram: "https://www.instagram.com/the.wraptastic/",
   tiktok: "https://www.tiktok.com/@wraptasticac",
   google: "https://share.google/ThQCm7y9VpegJHy8K",
+  maps: "https://www.google.com/maps?daddr=46+Village+Lake+Crescent,+Brampton,+ON+L6S+6K6",
 };
 
 export const ASSETS = {
@@ -33,13 +35,20 @@ export const ASSETS = {
   viperPoster: "/assets/viper-poster.jpg",
   corvetteVideo: "/assets/corvette-enhanced.mp4",
   corvettePoster: "/assets/corvette-poster.jpg",
+  roofVideo: "/assets/roof-enhanced.mp4",
+  roofPoster: "/assets/roof-poster.jpg",
   teslaPurple: "/assets/tesla-purple.png",
+  teslaSide: "/assets/tesla-side.png",
   corvetteGreen: "/assets/corvette-green.png",
+  corvetteFull: "/assets/corvette-full.png",
   viperStill: "/assets/viper-still.png",
   durangoBlack: "/assets/durango-black.png",
   infinitiBlack: "/assets/infiniti-black.png",
   corvetteWheel: "/assets/corvette-wheel.png",
   brandFreshener: "/assets/brand-freshener.png",
+  bmwM5: "/assets/bmw-m5.png",
+  cybertruckGreen: "/assets/cybertruck-green.png",
+  mercedesBlack: "/assets/mercedes-black.png",
   wheelSpin: "/assets/wheel-spin.png",
   racingStripes: "/assets/racing-stripes.jpg",
 };
@@ -62,8 +71,7 @@ export const SERVICES = [
     price: null,
     priceNote: "Pricing varies by vehicle and scope of work.",
     tags: ["Full & partial", "Color change", "Removable"],
-    image: ASSETS.teslaPurple,
-    category: "Wraps",
+    image: ASSETS.cybertruckGreen,
   },
   {
     slug: "ppf",
@@ -73,7 +81,6 @@ export const SERVICES = [
     priceNote: "Final pricing depends on the vehicle and scope of work.",
     tags: ["Self-healing", "All vehicle types"],
     image: ASSETS.corvetteGreen,
-    category: "PPF",
     tiers: [
       { label: "Partial Front", price: "Starting at $999+" },
       { label: "Full Front", price: "Starting at $1,499+" },
@@ -88,7 +95,6 @@ export const SERVICES = [
     priceNote: "Final pricing depends on vehicle and service requirements.",
     tags: ["Hydrophobic", "UV resistant", "Enhanced gloss"],
     image: ASSETS.infinitiBlack,
-    category: "Ceramic",
   },
   {
     slug: "tinting",
@@ -97,8 +103,7 @@ export const SERVICES = [
     price: "Starting at $199+",
     priceNote: "Nano Ceramic Tint. Lifetime warranty.",
     tags: ["Nano ceramic", "Lifetime warranty", "Heat rejection"],
-    image: ASSETS.durangoBlack,
-    category: "Tint",
+    image: ASSETS.teslaSide,
     highlight: "Lifetime Warranty",
   },
   {
@@ -108,8 +113,7 @@ export const SERVICES = [
     price: null,
     priceNote: "Pricing varies by vehicle and scope of work.",
     tags: ["Swirl removal", "Gloss restore"],
-    image: ASSETS.corvetteGreen,
-    category: "Paint Correction",
+    image: ASSETS.corvettePoster,
   },
   {
     slug: "powder-coating",
@@ -119,7 +123,6 @@ export const SERVICES = [
     priceNote: "Pricing varies by vehicle and scope of work.",
     tags: ["Wheels", "Trim", "Durable"],
     image: ASSETS.corvetteWheel,
-    category: "Other",
   },
   {
     slug: "racing-stripes",
@@ -129,7 +132,6 @@ export const SERVICES = [
     priceNote: "Pricing varies by vehicle and scope of work.",
     tags: ["Custom layout", "Precision"],
     image: ASSETS.racingStripes,
-    category: "Other",
   },
   {
     slug: "tuning",
@@ -138,8 +140,7 @@ export const SERVICES = [
     price: null,
     priceNote: "Pricing varies by vehicle and scope of work.",
     tags: ["Performance", "Custom"],
-    image: ASSETS.corvettePoster,
-    category: "Performance",
+    image: ASSETS.bmwM5,
   },
   {
     slug: "headlight-tints",
@@ -148,8 +149,7 @@ export const SERVICES = [
     price: null,
     priceNote: "Pricing varies by vehicle and scope of work.",
     tags: ["Styling", "Cohesive look"],
-    image: ASSETS.infinitiBlack,
-    category: "Other",
+    image: ASSETS.mercedesBlack,
   },
   {
     slug: "exhaust-work",
@@ -159,7 +159,6 @@ export const SERVICES = [
     priceNote: "Pricing varies by vehicle and scope of work.",
     tags: ["Custom", "Performance"],
     image: ASSETS.viperStill,
-    category: "Performance",
   },
 ];
 
@@ -177,18 +176,8 @@ export const VEHICLE_TYPES = [
 
 export const BRANDS = ["Avery Dennison", "3M", "XPEL", "VViViD", "KPMF"];
 
-export const GALLERY_CATEGORIES = [
-  "All",
-  "Wraps",
-  "PPF",
-  "Tint",
-  "Ceramic",
-  "Paint Correction",
-  "Performance",
-  "Other",
-];
-
 // Real Wraptastic media only. Add more items here as new work is uploaded.
+// The gallery shows the first 6 and reveals more with the See More button.
 export const GALLERY = [
   {
     id: "viper-red",
@@ -197,16 +186,14 @@ export const GALLERY = [
     poster: ASSETS.viperPoster,
     title: "Dodge Viper RT/10",
     caption: "Cinematic feature build",
-    categories: ["Performance", "Other"],
     size: "tall",
   },
   {
-    id: "viper-still",
+    id: "cybertruck-green",
     type: "image",
-    src: ASSETS.viperStill,
-    title: "Dodge Viper RT/10",
-    caption: "Iconic red, dusk feature shoot",
-    categories: ["Performance", "Paint Correction"],
+    src: ASSETS.cybertruckGreen,
+    title: "Tesla Cybertruck",
+    caption: "Matte green color-change wrap",
     size: "wide",
   },
   {
@@ -215,17 +202,15 @@ export const GALLERY = [
     src: ASSETS.teslaPurple,
     title: "Tesla Model Y",
     caption: "Midnight purple color-change wrap",
-    categories: ["Wraps"],
     size: "wide",
   },
   {
-    id: "durango-black",
+    id: "mercedes-black",
     type: "image",
-    src: ASSETS.durangoBlack,
-    title: "Dodge Durango R/T",
-    caption: "Satin black wrap, murdered-out",
-    categories: ["Wraps", "Tint"],
-    size: "wide",
+    src: ASSETS.mercedesBlack,
+    title: "Mercedes-AMG C43",
+    caption: "Satin black, blacked-out front end",
+    size: "tall",
   },
   {
     id: "corvette-video",
@@ -234,8 +219,32 @@ export const GALLERY = [
     poster: ASSETS.corvettePoster,
     title: "Chevrolet Corvette C8",
     caption: "Gloss green wrap in motion",
-    categories: ["Wraps", "Performance"],
     size: "tall",
+  },
+  {
+    id: "bmw-m5",
+    type: "image",
+    src: ASSETS.bmwM5,
+    title: "BMW M5",
+    caption: "Gloss black with red accents, rolling shot",
+    size: "wide",
+  },
+  {
+    id: "roof-wrap",
+    type: "video",
+    src: ASSETS.roofVideo,
+    poster: ASSETS.roofPoster,
+    title: "Gloss Black Roof Wrap",
+    caption: "In the shop, install in progress",
+    size: "tall",
+  },
+  {
+    id: "viper-still",
+    type: "image",
+    src: ASSETS.viperStill,
+    title: "Dodge Viper RT/10",
+    caption: "Iconic red, dusk feature shoot",
+    size: "wide",
   },
   {
     id: "infiniti-black",
@@ -243,16 +252,30 @@ export const GALLERY = [
     src: ASSETS.infinitiBlack,
     title: "Infiniti Q50",
     caption: "Gloss black, ceramic beading in the rain",
-    categories: ["Ceramic", "Tint"],
     size: "tall",
   },
   {
-    id: "corvette-detail",
+    id: "tesla-side",
     type: "image",
-    src: ASSETS.corvetteGreen,
-    title: "Corvette C8 Front End",
-    caption: "Flawless finish detail",
-    categories: ["Wraps", "Paint Correction"],
+    src: ASSETS.teslaSide,
+    title: "Tesla Model Y",
+    caption: "Matte purple profile, tinted glass",
+    size: "wide",
+  },
+  {
+    id: "durango-black",
+    type: "image",
+    src: ASSETS.durangoBlack,
+    title: "Dodge Durango R/T",
+    caption: "Satin black wrap, murdered-out",
+    size: "wide",
+  },
+  {
+    id: "corvette-full",
+    type: "image",
+    src: ASSETS.corvetteFull,
+    title: "Corvette Z06",
+    caption: "Gloss green at dusk",
     size: "tall",
   },
   {
@@ -261,7 +284,14 @@ export const GALLERY = [
     src: ASSETS.corvetteWheel,
     title: "Corvette C8 Wheel",
     caption: "Gloss black wheel, orange calipers",
-    categories: ["Other", "Performance"],
+    size: "tall",
+  },
+  {
+    id: "corvette-detail",
+    type: "image",
+    src: ASSETS.corvetteGreen,
+    title: "Corvette C8 Front End",
+    caption: "Flawless finish detail",
     size: "tall",
   },
   {
@@ -270,7 +300,6 @@ export const GALLERY = [
     src: ASSETS.brandFreshener,
     title: "Wraptastic Details",
     caption: "It is the little things",
-    categories: ["Other"],
     size: "tall",
   },
 ];
@@ -279,7 +308,7 @@ export const FEATURED = [
   {
     id: "viper",
     title: "Dodge Viper RT/10",
-    subtitle: "Iconic Red — Feature Shoot",
+    subtitle: "Iconic Red, Feature Shoot",
     desc: "A legend kept flawless. Paint correction, protection and a cinematic dusk shoot that shows every curve the way it deserves.",
     image: ASSETS.viperStill,
     tags: ["Paint Correction", "Detailing"],
@@ -294,31 +323,20 @@ export const FEATURED = [
   },
   {
     id: "corvette",
-    title: "Chevrolet Corvette C8",
+    title: "Chevrolet Corvette Z06",
     subtitle: "Gloss Green Transformation",
-    desc: "An aggressive gloss green wrap that makes the C8 lines pop. Sharp reflections, protected paint, showroom presence.",
-    image: ASSETS.corvetteGreen,
+    desc: "An aggressive gloss green wrap that makes the Corvette lines pop. Sharp reflections, protected paint, showroom presence.",
+    image: ASSETS.corvetteFull,
     tags: ["Vinyl Wrap", "Ceramic Coating"],
   },
   {
     id: "durango",
     title: "Dodge Durango R/T",
-    subtitle: "Satin Black — Murdered Out",
+    subtitle: "Satin Black, Murdered Out",
     desc: "Full satin black transformation with tinted glass. Stealth presence with a finish that swallows light and turns heads.",
     image: ASSETS.durangoBlack,
     tags: ["Vinyl Wrap", "Window Tint"],
   },
-];
-
-// Curated Instagram grid (real business media). If you connect a live feed
-// (e.g. Behold.so), set REACT_APP_INSTAGRAM_FEED_URL and it auto-updates.
-export const IG_POSTS = [
-  { id: "ig-1", image: ASSETS.viperStill, caption: "Dodge Viper RT/10 — feature shoot" },
-  { id: "ig-2", image: ASSETS.corvetteGreen, caption: "Corvette C8 gloss green" },
-  { id: "ig-3", image: ASSETS.teslaPurple, caption: "Tesla Model Y midnight purple" },
-  { id: "ig-4", image: ASSETS.durangoBlack, caption: "Durango R/T satin black" },
-  { id: "ig-5", image: ASSETS.infinitiBlack, caption: "Infiniti Q50 in the rain" },
-  { id: "ig-6", image: ASSETS.brandFreshener, caption: "Wraptastic details" },
 ];
 
 export const REVIEWS = [
@@ -351,6 +369,41 @@ export const REVIEWS = [
     name: "manav kapoor",
     rating: 5,
     text: "Just got my windows tinted and wow, it was super chill. The staff knew their stuff and the price? Absolutely worth it. It really gave my ride a nice look, kinda cool vibe and I cannot stop checking it out. Totally going back for more!",
+  },
+];
+
+export const FAQS = [
+  {
+    q: "How much does a vinyl wrap cost?",
+    a: "It depends on your vehicle size, the material you choose and the complexity of the job. Full wraps, partial wraps and color changes are all quoted individually. Send us your vehicle details on WhatsApp or through the quote form and we will get back to you with a clear price.",
+  },
+  {
+    q: "How long does a full wrap take?",
+    a: "Most full wraps take about 3 to 5 days depending on the vehicle, the prep required and the material. We never rush a build. Clean edges and tight corners take the time they take.",
+  },
+  {
+    q: "Will a wrap damage my paint?",
+    a: "No. A professionally installed and removed wrap protects your paint from sun and light scratches. For the best result the factory paint should be in healthy condition before wrapping.",
+  },
+  {
+    q: "How long do wraps and PPF last?",
+    a: "Quality vinyl typically lasts 5 to 7 years with proper care. Paint protection film is self-healing and can protect your paint for up to 10 years depending on the film and conditions.",
+  },
+  {
+    q: "Is the window tint warrantied?",
+    a: "Yes. We install nano ceramic tint that comes with a lifetime warranty, starting at $199+.",
+  },
+  {
+    q: "How do I book my vehicle in?",
+    a: "Request a quote first. Once you approve it, a 30% advance payment locks in your date. We accept Cash and E-transfer. Full booking terms are in our Terms of Service.",
+  },
+  {
+    q: "Do you offer mobile service?",
+    a: "Mobile service may be available upon request for an additional fee. Mention it in your quote request and we will confirm availability for your area.",
+  },
+  {
+    q: "What if I need to cancel or reschedule?",
+    a: "Please give us 24 to 48 hours notice before your scheduled date. We recommend rescheduling instead of cancelling, since the 30% advance payment is non-refundable on cancellations.",
   },
 ];
 

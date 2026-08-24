@@ -4,7 +4,6 @@ import { CinematicHero } from "@/components/CinematicHero";
 import { WheelSpeedScroll } from "@/components/WheelSpeedScroll";
 import { ServiceCardPremium } from "@/components/ServiceCardPremium";
 import { ReviewBelt } from "@/components/ReviewBelt";
-import { InstagramFeed } from "@/components/InstagramFeed";
 import { Reveal, SectionHeading } from "@/components/Reveal";
 import { CtaPrimary, CtaChrome, CtaWhatsApp } from "@/components/Buttons";
 import { SERVICES, FEATURED, BRANDS, ASSETS } from "@/lib/site";
@@ -35,12 +34,15 @@ export default function Home() {
               <span className="text-chrome">but the way you always pictured it.</span>
             </h2>
             <p className="mt-6 max-w-2xl text-lg text-[var(--w-silver-500)] leading-relaxed">
-              Color-change wraps, paint protection film, ceramic coating, tint, paint correction and performance work —
+              Color-change wraps, paint protection film, ceramic coating, tint, paint correction and performance work,
               handled with obsessive attention to detail in Brampton, serving the entire GTA.
             </p>
           </Reveal>
         </div>
       </section>
+
+      {/* Signature wheel-spin scroll set-piece (above services) */}
+      <WheelSpeedScroll />
 
       {/* Services preview */}
       <section className="bg-[var(--w-black-975)] py-16 lg:py-24 border-t border-white/5">
@@ -63,9 +65,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Signature wheel-spin scroll set-piece */}
-      <WheelSpeedScroll />
-
       {/* Featured builds */}
       <section className="bg-[var(--w-black-950)] py-16 lg:py-24 border-t border-white/5">
         <div className="container-w">
@@ -80,7 +79,7 @@ export default function Home() {
                   <div className={`relative lg:col-span-7 ${i % 2 === 1 ? "lg:order-2" : ""}`}>
                     <span
                       aria-hidden
-                      className={`hidden lg:block absolute -top-14 ${i % 2 === 1 ? "-right-4" : "-left-4"} font-display display-outline text-[9rem] leading-none select-none`}
+                      className={`hidden lg:block absolute -top-14 z-20 pointer-events-none ${i % 2 === 1 ? "-right-4" : "-left-4"} font-display display-outline text-[9rem] leading-none select-none`}
                     >
                       0{i + 1}
                     </span>
@@ -165,13 +164,6 @@ export default function Home() {
         <ReviewBelt />
       </section>
 
-      {/* Instagram */}
-      <section className="bg-[var(--w-black-950)] py-16 lg:py-24 border-t border-white/5">
-        <div className="container-w">
-          <InstagramFeed />
-        </div>
-      </section>
-
       {/* Final CTA */}
       <section className="relative py-28 lg:py-40 overflow-hidden">
         <img src={ASSETS.viperStill} alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" />
@@ -185,7 +177,7 @@ export default function Home() {
               Send us your vehicle details and get a quote. Fastest reply on WhatsApp.
             </p>
             <div className="mt-9 flex flex-col sm:flex-row items-center justify-center gap-4">
-              <CtaPrimary to="/contact" size="lg" testId="home-final-quote-button">
+              <CtaPrimary quote size="lg" testId="home-final-quote-button">
                 Get a Quote <ArrowRight size={18} />
               </CtaPrimary>
               <CtaWhatsApp size="lg" testId="home-final-whatsapp-button">WhatsApp Us</CtaWhatsApp>

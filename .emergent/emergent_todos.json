@@ -1,26 +1,42 @@
 [
   {
-    "content": "Get updated design guidelines from design_agent for premium overhaul",
+    "content": "Create accordion UI component (shadcn) for FAQs",
     "status": "completed"
   },
   {
-    "content": "Asset pipeline: transparent logo, enhance 5 new images (nano banana), enhance viper video (ffmpeg), wheel crop, racing stripes image",
-    "status": "completed"
+    "content": "Add global QuoteDialogProvider to App + /policy route",
+    "status": "in_progress"
   },
   {
-    "content": "Frontend rebuild: fonts, hero, wheel speed scroll set-piece, premium buttons, bigger logo",
-    "status": "completed"
+    "content": "Add `bare` prop to QuoteForm; add `quote` popup prop to CtaPrimary button",
+    "status": "pending"
   },
   {
-    "content": "Services page: images next to service names; Reviews infinite draggable belt; Instagram feed section",
-    "status": "completed"
+    "content": "Contact.js: remove form, add FAQ accordion, remove policies section",
+    "status": "pending"
   },
   {
-    "content": "Test full site (testing agent + screenshots), verify mobile",
-    "status": "completed"
+    "content": "Create Policy.js (Terms + Privacy) and link from Footer",
+    "status": "pending"
   },
   {
-    "content": "Explain Web3Forms key setup + Instagram live feed options to user",
-    "status": "completed"
+    "content": "Home.js: move wheel-scroll above Services, remove IG feed, fix Featured number z-index, quote popup CTAs, em dash",
+    "status": "pending"
+  },
+  {
+    "content": "Work.js: remove IG feed, update copy, quote popup CTA",
+    "status": "pending"
+  },
+  {
+    "content": "CinematicHero.js + Services.js: quote popup CTAs, remove em dashes",
+    "status": "pending"
+  },
+  {
+    "content": "Global em-dash removal check + esbuild compile check",
+    "status": "pending"
+  },
+  {
+    "content": "Screenshot verification + testing agent",
+    "status": "pending"
   }
 ]

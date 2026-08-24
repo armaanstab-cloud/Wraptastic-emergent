@@ -103,7 +103,7 @@ export default function Services() {
                       <p className="text-xs text-white/40 mt-2">{s.priceNote}</p>
                     </div>
                     <span className="shrink-0">
-                      <CtaPrimary to="/contact" size="sm" testId={`service-quote-${s.slug}`}>
+                      <CtaPrimary quote size="sm" testId={`service-quote-${s.slug}`}>
                         Get a Quote <ArrowRight size={15} />
                       </CtaPrimary>
                     </span>
@@ -149,7 +149,7 @@ export default function Services() {
           <h2 className="font-display text-4xl sm:text-5xl text-chrome">Not sure what your vehicle needs?</h2>
           <p className="mt-4 text-[var(--w-silver-500)]">Send us the details and we will recommend the right approach and give you a quote.</p>
           <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
-            <CtaPrimary to="/contact" testId="services-cta-quote">Get a Quote <ArrowRight size={17} /></CtaPrimary>
+            <CtaPrimary quote testId="services-cta-quote">Get a Quote <ArrowRight size={17} /></CtaPrimary>
             <CtaWhatsApp testId="services-cta-whatsapp">WhatsApp Us</CtaWhatsApp>
           </div>
         </div>
