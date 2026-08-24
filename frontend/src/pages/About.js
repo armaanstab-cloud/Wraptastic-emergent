@@ -47,7 +47,7 @@ export default function About() {
             </div>
           </Reveal>
           <Reveal delay={0.1}>
-            <h2 className="font-display text-3xl text-white tracking-[-0.01em]">Built for the streets. Finished like a show car.</h2>
+            <h2 className="font-display text-3xl text-chrome tracking-[-0.01em]">Built for the streets. Finished like a show car.</h2>
             <p className="mt-4 text-[var(--w-silver-500)] leading-relaxed">
               From full color-change wraps to paint protection film, ceramic coating, tint, paint correction and performance work, we handle it with care. We work with a wide range of vehicles, from daily drivers to exotics, and treat every build like it is our own.
             </p>
@@ -69,7 +69,7 @@ export default function About() {
               <Reveal key={v.title} delay={i * 0.06}>
                 <div className="h-full rounded-2xl hairline bg-[var(--w-charcoal-900)] p-6">
                   <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--w-red-accent)]/10 border border-[var(--w-red-accent)]/25 text-[var(--w-red-glow)]"><v.icon size={20} /></span>
-                  <h3 className="mt-4 font-display text-lg text-white">{v.title}</h3>
+                  <h3 className="mt-4 text-lg text-white font-bold">{v.title}</h3>
                   <p className="mt-2 text-sm text-[var(--w-silver-500)] leading-relaxed">{v.text}</p>
                 </div>
               </Reveal>

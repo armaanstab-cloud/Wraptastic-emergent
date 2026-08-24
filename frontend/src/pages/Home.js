@@ -90,7 +90,7 @@ export default function Home() {
                         loading="lazy"
                         className="w-full aspect-[16/10] object-cover transition-transform duration-[1100ms] ease-out group-hover:scale-[1.05]"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
                     </div>
                   </div>
                   <div className={`lg:col-span-5 ${i % 2 === 1 ? "lg:order-1" : ""}`}>
@@ -167,7 +167,7 @@ export default function Home() {
       {/* Final CTA */}
       <section className="relative py-28 lg:py-40 overflow-hidden">
         <img src={ASSETS.viperStill} alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-black/72" />
+        <div className="absolute inset-0 bg-black/45" />
         <div className="absolute inset-0" style={{ background: "var(--w-hero-vignette)" }} />
         <div className="relative z-10 container-w text-center">
           <Reveal>

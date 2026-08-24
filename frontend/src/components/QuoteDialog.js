@@ -24,8 +24,8 @@ export const QuoteDialogProvider = ({ children }) => {
                 Fastest reply on WhatsApp
               </span>
             </div>
-            <DialogTitle asChild>
-              <h2 className="font-display text-4xl text-chrome">Get a Quote</h2>
+            <DialogTitle className="font-display text-4xl sm:text-5xl leading-[1.05] text-chrome">
+              Get a Quote
             </DialogTitle>
             <p className="mt-2 text-sm text-[var(--w-silver-500)]">
               Tell us about your vehicle and what you want done. We will get back to you with a quote.

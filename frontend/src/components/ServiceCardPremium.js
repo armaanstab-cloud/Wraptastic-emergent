@@ -14,6 +14,7 @@ export const ServiceCardPremium = ({ service }) => {
           src={service.image}
           alt={service.name}
           loading="lazy"
+          style={{ objectPosition: service.imagePos || "center" }}
           className="h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.07]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[rgba(14,15,18,0.95)] via-transparent to-transparent" />

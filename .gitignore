@@ -86,3 +86,9 @@ android-sdk/
 credentials.json
 *.key
 .credentials
+
+# Static build output
+frontend/build/
+
+# ...but the template has no secrets and should be committed
+!.env.example

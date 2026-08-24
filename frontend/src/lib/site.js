@@ -25,32 +25,38 @@ export const LINKS = {
   instagram: "https://www.instagram.com/the.wraptastic/",
   tiktok: "https://www.tiktok.com/@wraptasticac",
   google: "https://share.google/ThQCm7y9VpegJHy8K",
-  maps: "https://www.google.com/maps?daddr=46+Village+Lake+Crescent,+Brampton,+ON+L6S+6K6",
+  maps: "https://www.google.com/maps/dir/?api=1&destination=Wraptastic+Auto+Customs%2C+46+Village+Lake+Crescent%2C+Brampton%2C+ON+L6S+6K6",
 };
 
 export const ASSETS = {
-  logo: "/assets/logo-transparent.png",
-  logoBadge: "/assets/logo.png",
+  logo: "/assets/logo-transparent.webp",
+  logoBadge: "/assets/logo.webp",
   viperVideo: "/assets/viper-enhanced.mp4",
-  viperPoster: "/assets/viper-poster.jpg",
+  viperPoster: "/assets/viper-poster.webp",
   corvetteVideo: "/assets/corvette-enhanced.mp4",
-  corvettePoster: "/assets/corvette-poster.jpg",
+  corvettePoster: "/assets/corvette-poster.webp",
   roofVideo: "/assets/roof-enhanced.mp4",
-  roofPoster: "/assets/roof-poster.jpg",
-  teslaPurple: "/assets/tesla-purple.png",
-  teslaSide: "/assets/tesla-side.png",
-  corvetteGreen: "/assets/corvette-green.png",
-  corvetteFull: "/assets/corvette-full.png",
-  viperStill: "/assets/viper-still.png",
-  durangoBlack: "/assets/durango-black.png",
-  infinitiBlack: "/assets/infiniti-black.png",
-  corvetteWheel: "/assets/corvette-wheel.png",
-  brandFreshener: "/assets/brand-freshener.png",
-  bmwM5: "/assets/bmw-m5.png",
-  cybertruckGreen: "/assets/cybertruck-green.png",
-  mercedesBlack: "/assets/mercedes-black.png",
-  wheelSpin: "/assets/wheel-spin.png",
-  racingStripes: "/assets/racing-stripes.jpg",
+  roofPoster: "/assets/roof-poster.webp",
+  teslaPurple: "/assets/tesla-purple.webp",
+  teslaSide: "/assets/tesla-side.webp",
+  corvetteGreen: "/assets/corvette-green.webp",
+  corvetteFull: "/assets/corvette-full.webp",
+  viperStill: "/assets/viper-still.webp",
+  durangoBlack: "/assets/durango-black.webp",
+  infinitiBlack: "/assets/infiniti-black.webp",
+  corvetteWheel: "/assets/corvette-wheel.webp",
+  brandFreshener: "/assets/brand-freshener.webp",
+  bmwM5: "/assets/bmw-m5.webp",
+  cybertruckGreen: "/assets/cybertruck-green.webp",
+  mercedesBlack: "/assets/mercedes-black.webp",
+  wheelSpin: "/assets/wheel-spin.webp",
+  racingStripes: "/assets/racing-stripes.webp",
+  jeepRubiconWhite: "/assets/jeep-rubicon-white.webp",
+  teslaModelYSatin: "/assets/tesla-model-y-satin.webp",
+  // Stock photo, not our own work. Source: Unsplash (Koons Automotive),
+  // photo uoMRXrDu4gQ. Unsplash License: free for commercial use, no attribution
+  // required. Swap for a real Wraptastic exhaust build when one is available.
+  exhaustTip: "/assets/exhaust-tip.webp",
 };
 
 export const NAV = [
@@ -72,6 +78,8 @@ export const SERVICES = [
     priceNote: "Pricing varies by vehicle and scope of work.",
     tags: ["Full & partial", "Color change", "Removable"],
     image: ASSETS.cybertruckGreen,
+    // Towers fill the top of this shot; bias the crop down to the vehicle.
+    imagePos: "center bottom",
   },
   {
     slug: "ppf",
@@ -113,7 +121,7 @@ export const SERVICES = [
     price: null,
     priceNote: "Pricing varies by vehicle and scope of work.",
     tags: ["Swirl removal", "Gloss restore"],
-    image: ASSETS.corvettePoster,
+    image: ASSETS.jeepRubiconWhite,
   },
   {
     slug: "powder-coating",
@@ -158,7 +166,7 @@ export const SERVICES = [
     price: null,
     priceNote: "Pricing varies by vehicle and scope of work.",
     tags: ["Custom", "Performance"],
-    image: ASSETS.viperStill,
+    image: ASSETS.exhaustTip,
   },
 ];
 
@@ -195,6 +203,22 @@ export const GALLERY = [
     title: "Tesla Cybertruck",
     caption: "Matte green color-change wrap",
     size: "wide",
+  },
+  {
+    id: "tesla-model-y-satin",
+    type: "image",
+    src: ASSETS.teslaModelYSatin,
+    title: "Tesla Model Y",
+    caption: "Satin grey color-change wrap",
+    size: "wide",
+  },
+  {
+    id: "jeep-rubicon-white",
+    type: "image",
+    src: ASSETS.jeepRubiconWhite,
+    title: "Jeep Wrangler Rubicon",
+    caption: "Gloss white full wrap",
+    size: "tall",
   },
   {
     id: "tesla-purple",
@@ -406,6 +430,7 @@ export const FAQS = [
     a: "Please give us 24 to 48 hours notice before your scheduled date. We recommend rescheduling instead of cancelling, since the 30% advance payment is non-refundable on cancellations.",
   },
 ];
+
 
 export const POLICIES = [
   {
