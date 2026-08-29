@@ -15,9 +15,12 @@ import {
 import { SERVICE_OPTIONS, CONTACT_METHODS, LINKS, BUSINESS } from "@/lib/site";
 
 // Web3Forms delivers submissions straight to the shop inbox with no backend.
-// The access key is a public alias for that inbox - safe in client-side code.
-// Get a free key at https://web3forms.com and set REACT_APP_WEB3FORMS_KEY.
-const WEB3FORMS_KEY = process.env.REACT_APP_WEB3FORMS_KEY;
+// The access key is a public alias for that inbox - safe in client-side code,
+// which is why it is committed here rather than kept as a build secret. That
+// means the form works on any host with no dashboard configuration.
+// Override it with REACT_APP_WEB3FORMS_KEY if the destination inbox ever changes.
+const WEB3FORMS_KEY =
+  process.env.REACT_APP_WEB3FORMS_KEY || "1aacfdfa-7eb4-446b-a9a0-3426939f0f2a";
 const WHATSAPP_NUMBER = BUSINESS.phoneRaw.replace(/\D/g, "");
 
 const emptyForm = {
@@ -162,7 +165,7 @@ export const QuoteForm = ({ bare = false }) => {
     if (honeypot.current) return;
 
     if (!WEB3FORMS_KEY) {
-      failToWhatsApp("REACT_APP_WEB3FORMS_KEY is not set - falling back to WhatsApp.");
+      failToWhatsApp("No Web3Forms access key - falling back to WhatsApp.");
       return;
     }
 

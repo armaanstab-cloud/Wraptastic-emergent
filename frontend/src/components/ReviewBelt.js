@@ -13,8 +13,16 @@ const ReviewCard = ({ review, idx }) => (
   >
     <Quote className="absolute top-5 right-5 text-white/[0.06]" size={56} />
     <div className="flex items-center gap-1 mb-4" aria-label={`${review.rating} out of 5 stars`}>
-      {Array.from({ length: review.rating }).map((_, i) => (
-        <Star key={i} size={15} className="fill-[var(--w-red-accent)] text-[var(--w-red-accent)]" />
+      {Array.from({ length: 5 }).map((_, i) => (
+        <Star
+          key={i}
+          size={15}
+          className={
+            i < review.rating
+              ? "fill-[var(--w-red-accent)] text-[var(--w-red-accent)]"
+              : "text-white/20"
+          }
+        />
       ))}
     </div>
     <p className="text-[15px] leading-relaxed text-[var(--w-chrome-300)]/90 line-clamp-5">

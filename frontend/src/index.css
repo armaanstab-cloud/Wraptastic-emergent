@@ -208,3 +208,11 @@
   html { scroll-behavior: auto; }
   .scroll-dot, .brand-marquee, .wa-pulse { animation: none; }
 }
+
+/* Behold live Instagram widget. The widget renders in its own shadow DOM and is
+   themed in the Behold dashboard; this only keeps it flowing like a block that
+   fills the container instead of an unstyled inline element. */
+.behold-shell behold-widget {
+  display: block;
+  width: 100%;
+}

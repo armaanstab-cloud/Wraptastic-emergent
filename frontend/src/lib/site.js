@@ -8,7 +8,11 @@ export const BUSINESS = {
   shortName: "Wraptastic",
   city: "Brampton, Ontario",
   region: "Brampton & the GTA",
+  // Deliberately NOT displayed anywhere on the site - the shop address is
+  // private. It is kept here only as the reference used for the Google Maps
+  // link below and for the Google Business Profile listing.
   address: "46 Village Lake Crescent, Brampton, ON L6S 6K6",
+  addressPublic: "Brampton, Ontario",
   phoneDisplay: "(647) 482-1403",
   phoneRaw: "+16474821403",
   email: "wraptasticautocustoms@gmail.com",
@@ -108,7 +112,7 @@ export const SERVICES = [
     slug: "tinting",
     name: "Window Tint",
     tagline: "Nano ceramic heat rejection with a lifetime warranty.",
-    price: "Starting at $199+",
+    price: "Starting at $149+",
     priceNote: "Nano Ceramic Tint. Lifetime warranty.",
     tags: ["Nano ceramic", "Lifetime warranty", "Heat rejection"],
     image: ASSETS.teslaSide,
@@ -118,8 +122,8 @@ export const SERVICES = [
     slug: "paint-correction",
     name: "Paint Correction",
     tagline: "Remove swirls. Restore true depth.",
-    price: null,
-    priceNote: "Pricing varies by vehicle and scope of work.",
+    price: "Starting at $249+",
+    priceNote: "Final pricing depends on the vehicle and scope of work.",
     tags: ["Swirl removal", "Gloss restore"],
     image: ASSETS.jeepRubiconWhite,
   },
@@ -127,8 +131,8 @@ export const SERVICES = [
     slug: "powder-coating",
     name: "Powder Coating",
     tagline: "Durable finishes for wheels and trim.",
-    price: null,
-    priceNote: "Pricing varies by vehicle and scope of work.",
+    price: "Starting at $449+",
+    priceNote: "Final pricing depends on the vehicle and scope of work.",
     tags: ["Wheels", "Trim", "Durable"],
     image: ASSETS.corvetteWheel,
   },
@@ -136,8 +140,8 @@ export const SERVICES = [
     slug: "racing-stripes",
     name: "Racing Stripes",
     tagline: "Motorsport character, cleanly applied.",
-    price: null,
-    priceNote: "Pricing varies by vehicle and scope of work.",
+    price: "Starting at $249+",
+    priceNote: "Final pricing depends on the vehicle and scope of work.",
     tags: ["Custom layout", "Precision"],
     image: ASSETS.racingStripes,
   },
@@ -154,8 +158,8 @@ export const SERVICES = [
     slug: "headlight-tints",
     name: "Headlight Tints",
     tagline: "Aggressive, cohesive front-end styling.",
-    price: null,
-    priceNote: "Pricing varies by vehicle and scope of work.",
+    price: "Starting at $99+",
+    priceNote: "Final pricing depends on the vehicle and scope of work.",
     tags: ["Styling", "Cohesive look"],
     image: ASSETS.mercedesBlack,
   },
@@ -180,6 +184,8 @@ export const VEHICLE_TYPES = [
   "Exotic Vehicle",
   "Performance Vehicle",
   "Commercial Vehicle",
+  "Motorcycle",
+  "ATV",
 ];
 
 export const BRANDS = ["Avery Dennison", "3M", "XPEL", "VViViD", "KPMF"];
@@ -363,6 +369,11 @@ export const FEATURED = [
   },
 ];
 
+// Real Google reviews, transcribed from the Google Business Profile.
+// The rotating belt on the home and reviews pages shows ALL of these; the
+// "More Reviews" grid on the reviews page shows the first REVIEWS_ON_PAGE and
+// sends people to Google for the rest, so keep the most detailed ones near the
+// top of this list.
 export const REVIEWS = [
   {
     name: "SM_08",
@@ -375,14 +386,82 @@ export const REVIEWS = [
     text: "Had an amazing experience with Wraptastic Auto Customs! Got the front end of my Tesla Model Y protected with PPF and the entire car window tinted. The quality of work is outstanding, attention to detail is top notch, and the team was professional from start to finish. Highly recommend!",
   },
   {
-    name: "Keerat Sidhu",
+    name: "Hargun Kaur",
     rating: 5,
+    text: "Got my window tinting, PPF, and vinyl wrap done here, and the execution was flawless. The staff were super knowledgeable and friendly, making sure I felt good about my choices. Pricing was absolutely worth it too. Seriously, if you're looking for quality work, this is the place to be.",
+  },
+  {
+    name: "Aarav Cajla",
+    rating: 5,
+    text: "Wraptastic does a great job with all of the services they provide, I recently got a full body PPF done to my Genesis G70 and it was completed on time, professionally, and with high quality.",
+  },
+  {
+    name: "Maan singh",
+    rating: 5,
+    text: "I got tints and ceramic coating done from these guys and they do an immaculate job. I would highly recommend to everyone and you will not regret it. Suhail does a great job communicating and helping understand everything about the job being done!",
+  },
+  {
+    name: "Daksh Narula",
+    rating: 5,
+    text: "Got a vinyl wrap done here and the attention to detail was exceptional, really happy with how it turned out. Staff were super knowledgeable and friendly, and honestly, it was pretty great value for the money.",
+  },
+  {
+    name: "Aryan Sahni",
+    rating: 5,
+    text: "Just got my vinyl wrap and ceramic coating done at Wraptastic, and the service was on point. The staff was super friendly and knew their stuff, which made the whole experience a breeze. The quality of the work? Flawless execution, for sure. Totally worth every penny, I'm stoked with how my car turned out!",
+  },
+  {
+    // Google shows this one at 4 stars, not 5 - see the owner reply on the
+    // listing. Left honest on purpose.
+    name: "Keerat Sidhu",
+    rating: 4,
     text: "5% back windows, 35% front windows and 50% front windshield. I also got ceramic coating and PPF making my car look beautiful. Absolutely amazing service, I would recommend Wraptastic to anyone that wants tints done or any other services done to vehicles.",
+  },
+  {
+    name: "harsimran singh",
+    rating: 5,
+    text: "Just got my car done with paint protection film and ceramic coating, and honestly, the work was beyond expectations. The staff was super knowledgeable and chill, making the whole experience pretty nice. Can't beat the value either, great bang for buck.",
+  },
+  {
+    name: "Priyansh Panwar",
+    rating: 5,
+    text: "Just got some paint protection film at Wraptastic and I was really impressed with how it turned out. The staff were super friendly and knew their stuff, which made everything way easier. Prices felt right for the quality, and honestly, they did a great job. I'd say if you're thinking about it, just go for it, you won't regret it!",
   },
   {
     name: "GURSEWAK Singh",
     rating: 5,
     text: "Got the ceramic coating and vinyl wrap done at Wraptastic, with some exhaust work too. The staff was super knowledgeable and gave top-notch service, plus the price was absolutely worth it for the quality of work.",
+  },
+  {
+    name: "Harinder Dhillon",
+    rating: 5,
+    text: "Amazing people and quality work. Best service i had so far since i went to 2 other places. Even after the job is done they treat you well. Got my car fully wrapped here and they're great. I recommend to everyone!",
+  },
+  // ^ REVIEWS_ON_PAGE cut-off. Everything below shows in the belt only.
+  {
+    name: "Akash Khalon",
+    rating: 5,
+    text: "Just had ceramic coating done at Wraptastic, and I gotta say, the execution was flawless. The staff were super friendly and really knew their stuff, which made the whole process pretty nice. Totally worth the price for the quality you get. If you're looking to protect your ride, I'd say these guys are the way to go.",
+  },
+  {
+    name: "Subeg Uppal",
+    rating: 5,
+    text: "I took my Corvette for a vinyl wrap and window tinting done at Wraptastic and it was really good. The staff was super chill and knew their stuff, plus the price was totally worth it for the quality. I'd say it's a solid spot if you want to upgrade your ride.",
+  },
+  {
+    name: "Eva Davies",
+    rating: 5,
+    text: "Got my window tinting done at Wraptastic and the work was beyond expectations. The staff were super knowledgeable and friendly, really helpful too. Honestly, it was absolutely worth the price. I'd say go here if you need stuff done to your car.",
+  },
+  {
+    name: "Japgun",
+    rating: 5,
+    text: "Got a vinyl wrap done at Wraptastic, and the quality was beyond expectations. The staff were super knowledgeable and friendly, totally worth the price for the top-notch service.",
+  },
+  {
+    name: "Jasman Aujla",
+    rating: 5,
+    text: "Just got my windows tinted at Wraptastic and I gotta say, the execution was flawless. The staff were super friendly and knew their stuff, making the whole thing pretty nice. I walked away feeling like I got a solid deal for the quality, totally worth it!",
   },
   {
     name: "V J",
@@ -394,7 +473,86 @@ export const REVIEWS = [
     rating: 5,
     text: "Just got my windows tinted and wow, it was super chill. The staff knew their stuff and the price? Absolutely worth it. It really gave my ride a nice look, kinda cool vibe and I cannot stop checking it out. Totally going back for more!",
   },
+  {
+    name: "Khushman Chahal",
+    rating: 5,
+    text: "Absolutely amazing experience with Wraptastic Auto Customs. The quality of the work was amazing and very professional, attention to detail was top tier and the final result looked incredible. Highly recommend to everyone.",
+  },
+  {
+    name: "Yash Vashisht",
+    rating: 5,
+    text: "Wraptastic provides the best quality services that anyone can ask for. Every time a friend of mine asks me about where they should get their car wrapped, I only have one answer. I've only heard good things about this business, so if you need your car wrapped, choose Wraptastic.",
+  },
+  {
+    name: "aman singh",
+    rating: 5,
+    text: "Just got my ceramic coating and vinyl wrap done at Wraptastic, and wow, flawless execution for sure. The staff were super friendly and really knew their stuff, which made everything feel pretty chill.",
+  },
+  {
+    name: "Aj L",
+    rating: 5,
+    text: "Great service, PPF was flawless, tints were perfect and ceramic coating was great as well.",
+  },
+  {
+    name: "Ryan jatana",
+    rating: 5,
+    text: "Got ceramic coating done by Suhail, amazing job brother, thanks.",
+  },
+  {
+    name: "The Real Food TV",
+    rating: 5,
+    text: "Amazing guys, really changed the whole look of my Durango.",
+  },
+  {
+    name: "Waleed Adnan",
+    rating: 5,
+    text: "Amazing work on my car, great reasonable people and outstanding job done for an amazing price.",
+  },
+  {
+    name: "Hareen Dhanoa",
+    rating: 5,
+    text: "I got my car PPF done at Wraptastic and it was amazing. Had a great experience and professional work. Highly recommend to everyone!",
+  },
+  {
+    name: "Shamsher Singh",
+    rating: 5,
+    text: "Great quality work! Wrapped professionally and would recommend to all!",
+  },
+  {
+    name: "Kivjot",
+    rating: 5,
+    text: "They did a very good job, I didn't have any problems, it was headache free and good price.",
+  },
+  {
+    name: "harbir sandhu",
+    rating: 5,
+    text: "Got my car ceramic coated, great service.",
+  },
+  {
+    name: "Mehtab Dhanoa",
+    rating: 5,
+    text: "I got my car wrapped, and the service was great!",
+  },
+  {
+    name: "Milan Jit",
+    rating: 5,
+    text: "Amazing work.",
+  },
+  {
+    name: "Kidha Bro",
+    rating: 5,
+    text: "Just went to Wraptastic, now I'm feeling fantastic.",
+  },
+  {
+    name: "Jagmeet Singh Sekhon",
+    rating: 5,
+    text: "Out of the world.",
+  },
 ];
+
+// How many of the reviews above appear in the grid on the reviews page. The
+// rest live in the belt, and the Google button under the grid covers everything.
+export const REVIEWS_ON_PAGE = 12;
 
 export const FAQS = [
   {

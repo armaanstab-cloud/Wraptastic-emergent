@@ -77,7 +77,7 @@ export default function Contact() {
                   <MapPin className="text-[var(--w-chrome-300)]" size={20} />
                   <div>
                     <p className="text-sm text-white font-500">Location & Directions</p>
-                    <p className="text-xs text-[var(--w-silver-500)]">{BUSINESS.address}</p>
+                    <p className="text-xs text-[var(--w-silver-500)]">{BUSINESS.addressPublic} &middot; Open in Google Maps</p>
                   </div>
                 </a>
                 <a href={LINKS.instagram} target="_blank" rel="noopener noreferrer" data-testid="contact-instagram" className="flex items-center gap-3 rounded-xl bg-white/5 border border-white/10 p-3.5 hover:bg-white/10 transition-colors">
