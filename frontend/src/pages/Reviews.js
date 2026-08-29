@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Star, ArrowUpRight } from "lucide-react";
 import { ReviewBelt } from "@/components/ReviewBelt";
 import { Reveal, SectionHeading } from "@/components/Reveal";
-import { REVIEWS, LINKS, ASSETS } from "@/lib/site";
+import { REVIEWS, REVIEWS_ON_PAGE, LINKS, ASSETS } from "@/lib/site";
 
 export default function Reviews() {
   useEffect(() => {
@@ -38,12 +38,20 @@ export default function Reviews() {
         <div className="container-w">
           <SectionHeading eyebrow="Every Word" title="More Reviews" className="mb-12" />
           <div className="columns-1 md:columns-2 lg:columns-3 gap-6">
-            {REVIEWS.map((r, i) => (
+            {REVIEWS.slice(0, REVIEWS_ON_PAGE).map((r, i) => (
               <Reveal key={r.name} delay={(i % 3) * 0.05}>
                 <div className="mb-6 break-inside-avoid rounded-2xl hairline bg-[var(--w-charcoal-900)] p-6">
-                  <div className="flex items-center gap-1 mb-4">
-                    {Array.from({ length: r.rating }).map((_, j) => (
-                      <Star key={j} size={15} className="fill-[var(--w-red-accent)] text-[var(--w-red-accent)]" />
+                  <div className="flex items-center gap-1 mb-4" aria-label={`${r.rating} out of 5 stars`}>
+                    {Array.from({ length: 5 }).map((_, j) => (
+                      <Star
+                        key={j}
+                        size={15}
+                        className={
+                          j < r.rating
+                            ? "fill-[var(--w-red-accent)] text-[var(--w-red-accent)]"
+                            : "text-white/20"
+                        }
+                      />
                     ))}
                   </div>
                   <p className="text-[var(--w-chrome-300)]/90 leading-relaxed">“{r.text}”</p>
@@ -53,6 +61,9 @@ export default function Reviews() {
             ))}
           </div>
           <div className="mt-10 text-center">
+            <p className="mb-5 text-sm text-[var(--w-silver-500)]">
+              These are a handful of them. Every review, unedited, is on our Google profile.
+            </p>
             <a href={LINKS.google} target="_blank" rel="noopener noreferrer" data-testid="reviews-page-google-cta" className="inline-flex items-center gap-2 h-12 px-6 rounded-xl bg-[var(--w-red-accent)] text-white font-500 hover:bg-[var(--w-red-deep)] transition-colors">
               See more reviews on Google <ArrowUpRight size={18} />
             </a>
