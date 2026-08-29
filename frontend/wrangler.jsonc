@@ -5,16 +5,18 @@
   // only, which is why there is no "main" field. `yarn build` must run first;
   // "build" does not exist in git, it is produced by the build step.
   //
-  // IMPORTANT: "name" must match the Worker name in the Cloudflare dashboard
-  // exactly. If it does not, `wrangler deploy` quietly creates a SECOND Worker
-  // under this name instead of updating the existing one.
-  "name": "wraptastic-auto-customs",
+  // Cloudflare's own build pipeline ignores this and deploys to whichever
+  // Worker the build is attached to (the logs show it targeting
+  // "wraptastic-emergent1"). It only matters if someone runs `wrangler deploy`
+  // by hand from a laptop - then it must match the real Worker, or it creates a
+  // second one instead of updating the live site.
+  "name": "wraptastic-emergent1",
   "compatibility_date": "2026-08-29",
   "assets": {
     "directory": "./build",
     // Client-side routing: any unknown path serves index.html so /services and
     // /work resolve on a hard refresh instead of 404ing. This is the Workers
-    // equivalent of the /* -> /index.html rule in public/_redirects.
+    // equivalent of the /* -> /index.html rule in deploy/_redirects.
     "not_found_handling": "single-page-application"
   }
 }

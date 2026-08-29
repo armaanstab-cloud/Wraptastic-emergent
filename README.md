@@ -105,10 +105,26 @@ visit is ~3 MB and that ceiling is roughly 5,000 visits/month.
 **Avoid Vercel's Hobby plan** - it prohibits commercial use, and this is a
 business site. Vercel Pro is $20/month.
 
-Client-side routing is handled two ways so it works on either platform:
-`frontend/public/_redirects` (Pages and Netlify) and `not_found_handling` in
-`wrangler.jsonc` (Workers). Without one of them, every route except `/` returns
-404 on refresh.
+### Client-side routing (and why `_redirects` is not in `public/`)
+
+Without a catch-all rule, every route except `/` returns 404 on a hard refresh.
+The two platforms solve it differently and their solutions are incompatible:
+
+- **Workers** uses `"not_found_handling": "single-page-application"` in
+  `wrangler.jsonc`. This is what the site runs on today.
+- **Pages and Netlify** use a `_redirects` file with `/*  /index.html  200`.
+
+Workers **rejects** that Pages rule outright and fails the entire deploy:
+
+```
+Invalid _redirects configuration:
+Line 1: Infinite loop detected in this rule.
+```
+
+Anything in `frontend/public/` is copied into `build/` and uploaded, so the file
+cannot live there. It is parked at **`frontend/deploy/_redirects`** instead,
+outside the build. If this site ever moves to Pages or Netlify, copy it into
+`frontend/public/` and routing works again.
 
 ## Before you go live
 
