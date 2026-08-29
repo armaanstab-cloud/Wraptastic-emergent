@@ -12,7 +12,7 @@ export const ServiceCardPremium = ({ service }) => {
       <div className="relative aspect-[16/10] overflow-hidden">
         <img
           src={service.image}
-          alt={service.name}
+          alt={`${service.name} in Brampton and the GTA by Wraptastic Auto Customs`}
           loading="lazy"
           style={{ objectPosition: service.imagePos || "center" }}
           className="h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.07]"

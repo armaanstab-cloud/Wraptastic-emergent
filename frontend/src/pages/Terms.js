@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { useSeo } from "@/lib/seo";
 import { LegalPage } from "@/components/LegalPage";
 import { TermsBody, LEGAL_UPDATED } from "@/components/LegalContent";
 
 export default function Terms() {
-  useEffect(() => {
-    document.title = "Terms of Service | Wraptastic Auto Customs";
-  }, []);
+  useSeo("terms");
 
   return (
     <LegalPage

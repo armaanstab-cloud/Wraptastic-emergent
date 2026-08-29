@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { ArrowRight, ShieldCheck, Layers, Sparkles, Timer, Star } from "lucide-react";
 import { CinematicHero } from "@/components/CinematicHero";
 import { WheelSpeedScroll } from "@/components/WheelSpeedScroll";
@@ -7,6 +7,7 @@ import { ReviewBelt } from "@/components/ReviewBelt";
 import { Reveal, SectionHeading } from "@/components/Reveal";
 import { CtaPrimary, CtaChrome, CtaWhatsApp } from "@/components/Buttons";
 import { SERVICES, FEATURED, BRANDS, ASSETS } from "@/lib/site";
+import { useSeo } from "@/lib/seo";
 
 const WHY = [
   { icon: Layers, title: "Precision Installs", text: "Wrapped edges, clean corners and tight panel gaps. Every build is finished like a show car." },
@@ -16,9 +17,7 @@ const WHY = [
 ];
 
 export default function Home() {
-  useEffect(() => {
-    document.title = "Wraptastic Auto Customs | Vinyl Wraps, PPF, Ceramic & Tint in Brampton";
-  }, []);
+  useSeo("home");
 
   return (
     <div>

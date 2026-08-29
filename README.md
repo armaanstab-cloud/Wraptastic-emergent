@@ -63,17 +63,41 @@ conversation.
 
 Any static host works. The build output is just files.
 
-**Recommended: Cloudflare Pages** (free, unlimited bandwidth, commercial use
-allowed):
+### Cloudflare (Workers)
+
+The repo carries `frontend/wrangler.jsonc`, which deploys `frontend/build` as
+static assets with no Worker script. Two things have to be true in the
+dashboard, under **Settings > Build**:
+
+| Setting | Value |
+|---|---|
+| Root directory | `frontend` |
+| Build command | `yarn build` |
+| Deploy command | `npx wrangler deploy` |
+
+**Both matter.** `wrangler deploy` only uploads a folder - it does not build the
+site. With no build command, nothing produces `frontend/build` (it is gitignored
+and never committed), and the deploy fails with:
+
+```
+✘ [ERROR] Could not detect a directory containing static files
+```
+
+Also make sure the `name` in `wrangler.jsonc` matches the Worker name in the
+dashboard. If it does not, `wrangler deploy` creates a second Worker under that
+name rather than updating the one your domain points at.
+
+### Cloudflare Pages (the alternative)
+
+Pages builds and publishes in one step, no `wrangler.jsonc` involved:
 
 | Setting | Value |
 |---|---|
 | Build command | `yarn build` |
 | Build output directory | `build` |
 | Root directory | `frontend` |
-| Environment variable | `REACT_APP_WEB3FORMS_KEY` |
 
-**Netlify** works identically with the same settings (publish directory
+**Netlify** works identically to Pages with the same settings (publish directory
 `frontend/build`). Note its free tier is ~15 GB bandwidth/month and **stops
 serving** when exhausted. The media is compressed (see below), so a typical
 visit is ~3 MB and that ceiling is roughly 5,000 visits/month.
@@ -81,9 +105,26 @@ visit is ~3 MB and that ceiling is roughly 5,000 visits/month.
 **Avoid Vercel's Hobby plan** - it prohibits commercial use, and this is a
 business site. Vercel Pro is $20/month.
 
-`frontend/public/_redirects` handles client-side routing. Without it every route
-except `/` returns 404 on refresh. It is already committed and works on both
-Cloudflare Pages and Netlify.
+### Client-side routing (and why `_redirects` is not in `public/`)
+
+Without a catch-all rule, every route except `/` returns 404 on a hard refresh.
+The two platforms solve it differently and their solutions are incompatible:
+
+- **Workers** uses `"not_found_handling": "single-page-application"` in
+  `wrangler.jsonc`. This is what the site runs on today.
+- **Pages and Netlify** use a `_redirects` file with `/*  /index.html  200`.
+
+Workers **rejects** that Pages rule outright and fails the entire deploy:
+
+```
+Invalid _redirects configuration:
+Line 1: Infinite loop detected in this rule.
+```
+
+Anything in `frontend/public/` is copied into `build/` and uploaded, so the file
+cannot live there. It is parked at **`frontend/deploy/_redirects`** instead,
+outside the build. If this site ever moves to Pages or Netlify, copy it into
+`frontend/public/` and routing works again.
 
 ## Before you go live
 
@@ -153,6 +194,47 @@ Behold holds the Instagram token and refreshes it, which is the whole reason for
 using it - Instagram tokens expire every 60 days and a self-hosted sync would go
 stale silently. Requirement: the Instagram account must stay a Business or
 Creator account.
+
+## SEO
+
+Keywords live in three places, in ascending order of how much Google cares:
+
+1. **`frontend/public/index.html`** - the `<meta name="keywords">` tag and the
+   fallback title/description. The keywords tag is inert: Google has ignored it
+   since 2009 and Bing treats it as a spam signal. It is kept because it costs
+   nothing, not because it ranks anything.
+2. **`frontend/src/lib/seo.js`** - the real work. One entry per route with a
+   title, description and keyword list, applied by the `useSeo()` hook on every
+   page. Titles are held near 60 characters and descriptions near 155 so Google
+   prints them whole instead of cutting them off. **This is the file to edit
+   when you want to target a new search term.**
+3. **The words on the page.** Headings, service names, review text and the
+   service-area line in the footer (`SERVICE_AREAS` in `site.js`) are what
+   actually rank for "car wrap mississauga" and the like. A keyword that appears
+   nowhere in the visible copy will not rank no matter what the meta tags say.
+
+`useSeo()` also fixes a real problem: every route used to serve the canonical of
+the homepage, which tells Google that /services, /work and the rest are
+duplicates of "/" and should not be indexed separately. Each page now declares
+its own canonical.
+
+`index.html` also carries the structured data (`AutoBodyShop`) with the service
+catalogue, starting prices and the cities served. **Prices there are duplicated
+from `SERVICES` in `site.js` - change one, change the other.**
+
+### Known limit: social link previews
+
+This is a client-rendered app. Google runs JavaScript and sees the per-page
+tags, but Facebook, WhatsApp and X do not - they read the raw `index.html`, so a
+link to any page previews with the homepage title and description. Fixing it
+properly means prerendering the routes to static HTML at build time. Worth doing
+if the shop starts sharing deep links; not worth it for sharing the homepage.
+
+### The thing that matters more than any of this
+
+For a local shop, the **Google Business Profile** drives more calls than the
+website will. Name, phone and city must match `site.js` exactly, the service
+list should mirror the site, and photos should be posted to it regularly.
 
 ## Editing content
 

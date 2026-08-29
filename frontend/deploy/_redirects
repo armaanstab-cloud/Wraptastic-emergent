@@ -1,0 +1,11 @@
+# NOT used by the current deployment. Cloudflare Workers rejects the SPA rule
+# below with "Infinite loop detected in this rule" and fails the whole deploy,
+# so this file is deliberately kept OUT of public/ (anything in public/ is
+# copied into build/ and uploaded).
+#
+# Workers handles client-side routing through not_found_handling:
+# "single-page-application" in wrangler.jsonc instead.
+#
+# If this site ever moves to Cloudflare Pages or Netlify, copy this file into
+# frontend/public/ - without it every route except / returns 404 on refresh.
+/*    /index.html   200

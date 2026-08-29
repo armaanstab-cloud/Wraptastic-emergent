@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, ShieldCheck, Layers, SprayCan, Star } from "lucide-react";
 import { Reveal, SectionHeading } from "@/components/Reveal";
 import { ASSETS, LINKS, BRANDS } from "@/lib/site";
+import { useSeo } from "@/lib/seo";
 
 const VALUES = [
   { icon: Layers, title: "Attention To Detail", text: "Clean edges, wrapped corners and tight panel gaps on every single build." },
@@ -12,9 +13,7 @@ const VALUES = [
 ];
 
 export default function About() {
-  useEffect(() => {
-    document.title = "About | Wraptastic Auto Customs";
-  }, []);
+  useSeo("about");
 
   return (
     <div>

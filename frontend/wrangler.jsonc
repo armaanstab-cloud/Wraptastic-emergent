@@ -1,0 +1,22 @@
+{
+  // Cloudflare Workers config for the static site.
+  //
+  // There is no Worker script - this deploys the built folder as static assets
+  // only, which is why there is no "main" field. `yarn build` must run first;
+  // "build" does not exist in git, it is produced by the build step.
+  //
+  // Cloudflare's own build pipeline ignores this and deploys to whichever
+  // Worker the build is attached to (the logs show it targeting
+  // "wraptastic-emergent1"). It only matters if someone runs `wrangler deploy`
+  // by hand from a laptop - then it must match the real Worker, or it creates a
+  // second one instead of updating the live site.
+  "name": "wraptastic-emergent1",
+  "compatibility_date": "2026-08-29",
+  "assets": {
+    "directory": "./build",
+    // Client-side routing: any unknown path serves index.html so /services and
+    // /work resolve on a hard refresh instead of 404ing. This is the Workers
+    // equivalent of the /* -> /index.html rule in deploy/_redirects.
+    "not_found_handling": "single-page-application"
+  }
+}

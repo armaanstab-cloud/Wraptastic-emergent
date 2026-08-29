@@ -7,7 +7,7 @@
     <link rel="icon" href="/assets/logo.png" />
     <link rel="apple-touch-icon" href="/assets/logo.png" />
 
-    <title>Wraptastic Auto Customs | Vinyl Wrap, PPF, Ceramic Coating & Tint in Brampton</title>
+    <title>Vinyl Wrap, PPF & Ceramic Coating in Brampton | Wraptastic</title>
     <meta
       name="description"
       content="Premium automotive customization in Brampton and the GTA. Vinyl wraps, paint protection film (PPF), ceramic coating, nano ceramic window tint, paint correction and more. Built to stand out."
@@ -27,13 +27,30 @@
     <meta name="twitter:description" content="Vinyl wraps, PPF, ceramic coating and tint in Brampton and the GTA." />
     <meta name="twitter:image" content="https://wraptasticautocustoms.com/assets/og-cover.jpg" />
 
+    <!--
+      Structured data. Prices here mirror the SERVICES array in src/lib/site.js -
+      if you change a price there, change it here too. Google reads this to
+      understand what the shop does, where it works and what it charges.
+    -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "AutoBodyShop",
         "name": "Wraptastic Auto Customs",
         "description": "Premium automotive customization, protection, styling and performance. Vinyl wraps, paint protection film, ceramic coating, window tint, paint correction and more.",
-        "areaServed": "Brampton, Ontario and the Greater Toronto Area",
+        "url": "https://wraptasticautocustoms.com/",
+        "image": "https://wraptasticautocustoms.com/assets/og-cover.jpg",
+        "logo": "https://wraptasticautocustoms.com/assets/logo.png",
+        "areaServed": [
+          { "@type": "City", "name": "Brampton" },
+          { "@type": "City", "name": "Mississauga" },
+          { "@type": "City", "name": "Toronto" },
+          { "@type": "City", "name": "Vaughan" },
+          { "@type": "City", "name": "Caledon" },
+          { "@type": "City", "name": "Etobicoke" },
+          { "@type": "City", "name": "Georgetown" },
+          { "@type": "City", "name": "Milton" }
+        ],
         "address": {
           "@type": "PostalAddress",
           "addressLocality": "Brampton",
@@ -44,6 +61,60 @@
         "email": "wraptasticautocustoms@gmail.com",
         "priceRange": "$$",
         "paymentAccepted": "Cash, E-transfer",
+        "currenciesAccepted": "CAD",
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Services",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": { "@type": "Service", "name": "Vinyl Wrap" }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": { "@type": "Service", "name": "Paint Protection Film (PPF)" },
+              "priceSpecification": { "@type": "PriceSpecification", "minPrice": 999, "priceCurrency": "CAD" }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": { "@type": "Service", "name": "Ceramic Coating" },
+              "priceSpecification": { "@type": "PriceSpecification", "minPrice": 249, "priceCurrency": "CAD" }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": { "@type": "Service", "name": "Nano Ceramic Window Tint" },
+              "priceSpecification": { "@type": "PriceSpecification", "minPrice": 149, "priceCurrency": "CAD" }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": { "@type": "Service", "name": "Paint Correction" },
+              "priceSpecification": { "@type": "PriceSpecification", "minPrice": 249, "priceCurrency": "CAD" }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": { "@type": "Service", "name": "Powder Coating" },
+              "priceSpecification": { "@type": "PriceSpecification", "minPrice": 449, "priceCurrency": "CAD" }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": { "@type": "Service", "name": "Racing Stripes" },
+              "priceSpecification": { "@type": "PriceSpecification", "minPrice": 249, "priceCurrency": "CAD" }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": { "@type": "Service", "name": "Headlight Tints" },
+              "priceSpecification": { "@type": "PriceSpecification", "minPrice": 99, "priceCurrency": "CAD" }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": { "@type": "Service", "name": "Tuning" }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": { "@type": "Service", "name": "Exhaust Work" }
+            }
+          ]
+        },
         "sameAs": [
           "https://www.instagram.com/the.wraptastic/",
           "https://www.tiktok.com/@wraptasticac"

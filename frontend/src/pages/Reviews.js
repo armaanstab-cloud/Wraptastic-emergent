@@ -1,13 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Star, ArrowUpRight } from "lucide-react";
 import { ReviewBelt } from "@/components/ReviewBelt";
 import { Reveal, SectionHeading } from "@/components/Reveal";
 import { REVIEWS, REVIEWS_ON_PAGE, LINKS, ASSETS } from "@/lib/site";
+import { useSeo } from "@/lib/seo";
 
 export default function Reviews() {
-  useEffect(() => {
-    document.title = "Reviews | Wraptastic Auto Customs";
-  }, []);
+  useSeo("reviews");
 
   return (
     <div>

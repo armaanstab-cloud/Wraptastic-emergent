@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { MessageCircle, Phone, Mail, Instagram, MapPin, ArrowUpRight } from "lucide-react";
-import { NAV, LINKS, ASSETS, BUSINESS, SERVICES } from "@/lib/site";
+import { NAV, LINKS, ASSETS, BUSINESS, SERVICES, SERVICE_AREAS } from "@/lib/site";
 import { useQuoteDialog } from "@/components/QuoteDialog";
 import { useLegalDialog } from "@/components/LegalDialog";
 
@@ -121,7 +121,13 @@ export const Footer = () => {
           </button>
         </div>
 
-        <div className="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p className="mt-10 text-xs leading-relaxed text-white/40">
+          Serving {SERVICE_AREAS.join(", ")} and the rest of the Greater Toronto Area
+          with vinyl wraps, paint protection film, ceramic coating, window tint,
+          paint correction, powder coating and performance work.
+        </p>
+
+        <div className="mt-6 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-white/40">© {new Date().getFullYear()} {BUSINESS.name}. All rights reserved.</p>
           <div className="flex items-center gap-5 text-xs text-white/40">
             <button type="button" onClick={() => openLegal("privacy")} className="hover:text-white/70 transition-colors" data-testid="footer-privacy-mini">Privacy</button>
