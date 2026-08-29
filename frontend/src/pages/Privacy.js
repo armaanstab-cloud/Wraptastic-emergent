@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { useSeo } from "@/lib/seo";
 import { LegalPage } from "@/components/LegalPage";
 import { PrivacyBody, LEGAL_UPDATED } from "@/components/LegalContent";
 
 export default function Privacy() {
-  useEffect(() => {
-    document.title = "Privacy Policy | Wraptastic Auto Customs";
-  }, []);
+  useSeo("privacy");
 
   return (
     <LegalPage

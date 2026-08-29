@@ -190,6 +190,21 @@ export const VEHICLE_TYPES = [
 
 export const BRANDS = ["Avery Dennison", "3M", "XPEL", "VViViD", "KPMF"];
 
+// Printed in the footer and mirrored in the areaServed block of
+// public/index.html. City names in the page text are what rank for searches
+// like "car wrap mississauga" - keep this list to places we will actually
+// travel to or take vehicles from.
+export const SERVICE_AREAS = [
+  "Brampton",
+  "Mississauga",
+  "Toronto",
+  "Vaughan",
+  "Caledon",
+  "Etobicoke",
+  "Georgetown",
+  "Milton",
+];
+
 // Real Wraptastic media only. Add more items here as new work is uploaded.
 // The gallery shows the first 6 and reveals more with the See More button.
 export const GALLERY = [

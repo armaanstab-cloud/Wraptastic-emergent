@@ -1,15 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Instagram, ArrowRight } from "lucide-react";
 import { WorkGalleryMasonry } from "@/components/WorkGalleryMasonry";
 import { BeholdFeed } from "@/components/BeholdFeed";
 import { Reveal } from "@/components/Reveal";
 import { CtaPrimary } from "@/components/Buttons";
 import { LINKS, ASSETS, BUSINESS } from "@/lib/site";
+import { useSeo } from "@/lib/seo";
 
 export default function Work() {
-  useEffect(() => {
-    document.title = "Our Work | Wraptastic Auto Customs";
-  }, []);
+  useSeo("work");
 
   return (
     <div>

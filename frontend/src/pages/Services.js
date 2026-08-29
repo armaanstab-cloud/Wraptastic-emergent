@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { ArrowRight, Check } from "lucide-react";
 import { Reveal, SectionHeading } from "@/components/Reveal";
 import { CtaPrimary, CtaWhatsApp, CtaChrome } from "@/components/Buttons";
 import { SERVICES, VEHICLE_TYPES, BRANDS, ASSETS } from "@/lib/site";
+import { useSeo } from "@/lib/seo";
 
 const PageHeader = ({ eyebrow, title, sub, poster }) => (
   <section className="relative pt-36 pb-16 lg:pt-44 lg:pb-24 overflow-hidden bg-[var(--w-black-975)]">
@@ -24,9 +25,7 @@ const PageHeader = ({ eyebrow, title, sub, poster }) => (
 );
 
 export default function Services() {
-  useEffect(() => {
-    document.title = "Services | Wraptastic Auto Customs";
-  }, []);
+  useSeo("services");
 
   return (
     <div>

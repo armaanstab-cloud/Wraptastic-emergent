@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { MessageCircle, Phone, Mail, MapPin, Instagram, CreditCard, ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
 import { useQuoteDialog } from "@/components/QuoteDialog";
@@ -9,13 +9,12 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { BUSINESS, LINKS, FAQS, ASSETS } from "@/lib/site";
+import { useSeo } from "@/lib/seo";
 
 export default function Contact() {
   const { openQuote } = useQuoteDialog();
 
-  useEffect(() => {
-    document.title = "Get a Quote | Wraptastic Auto Customs";
-  }, []);
+  useSeo("contact");
 
   return (
     <div>

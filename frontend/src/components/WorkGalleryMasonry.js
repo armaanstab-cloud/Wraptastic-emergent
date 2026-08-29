@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Play, ChevronDown, ChevronUp } from "lucide-react";
-import { GALLERY } from "@/lib/site";
+import { GALLERY, BUSINESS } from "@/lib/site";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 const STEP = 6;
+
+// "Tesla Model Y - satin grey color-change wrap by Wraptastic Auto Customs,
+// Brampton". Reads correctly to a screen reader and to Google Images.
+const altFor = (item) =>
+  `${item.title} - ${item.caption} by ${BUSINESS.name} in ${BUSINESS.city}`;
 
 export const WorkGalleryMasonry = ({ limit }) => {
   const [selected, setSelected] = useState(null);
@@ -46,7 +51,7 @@ export const WorkGalleryMasonry = ({ limit }) => {
             ) : (
               <img
                 src={item.src}
-                alt={item.title}
+                alt={altFor(item)}
                 loading="lazy"
                 className="h-full w-full object-cover transition-transform duration-[900ms] group-hover:scale-[1.05]"
               />
@@ -101,7 +106,7 @@ export const WorkGalleryMasonry = ({ limit }) => {
                   <source src={selected.src} type="video/mp4" />
                 </video>
               ) : (
-                <img src={selected.src} alt={selected.title} className="w-full max-h-[80vh] object-contain rounded-xl bg-black" />
+                <img src={selected.src} alt={altFor(selected)} className="w-full max-h-[80vh] object-contain rounded-xl bg-black" />
               )}
               <div className="px-2 py-3 flex items-center justify-between">
                 <div>
