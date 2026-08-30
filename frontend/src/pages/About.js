@@ -4,6 +4,7 @@ import { ArrowRight, ShieldCheck, Layers, SprayCan, Star } from "lucide-react";
 import { Reveal, SectionHeading } from "@/components/Reveal";
 import { ASSETS, LINKS, BRANDS } from "@/lib/site";
 import { useSeo } from "@/lib/seo";
+import { useAutoplayVideo } from "@/lib/useAutoplayVideo";
 
 const VALUES = [
   { icon: Layers, title: "Attention To Detail", text: "Clean edges, wrapped corners and tight panel gaps on every single build." },
@@ -13,13 +14,14 @@ const VALUES = [
 ];
 
 export default function About() {
+  const bgVideo = useAutoplayVideo();
   useSeo("about");
 
   return (
     <div>
       <section className="relative pt-32 pb-16 lg:pt-40 lg:pb-24 overflow-hidden bg-[var(--w-black-975)]">
         <div className="absolute inset-0 opacity-25">
-          <video className="h-full w-full object-cover cine-video" autoPlay muted loop playsInline poster={ASSETS.corvettePoster}>
+          <video ref={bgVideo} className="h-full w-full object-cover cine-video" autoPlay muted loop playsInline poster={ASSETS.corvettePoster}>
             <source src={ASSETS.corvetteVideo} type="video/mp4" />
           </video>
           <div className="absolute inset-0" style={{ background: "var(--w-hero-vignette)" }} />

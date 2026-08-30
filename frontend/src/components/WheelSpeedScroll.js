@@ -38,7 +38,7 @@ export const WheelSpeedScroll = () => {
       data-testid="wheel-speed-section"
       className="relative h-[240vh] bg-[var(--w-black-975)]"
     >
-      <div className="sticky top-0 h-screen overflow-hidden">
+      <div className="sticky top-0 h-screen supports-[height:100svh]:h-[100svh] overflow-hidden">
         {/* ambient red glow */}
         <motion.div
           aria-hidden

@@ -10,8 +10,10 @@ import {
 } from "@/components/ui/accordion";
 import { BUSINESS, LINKS, FAQS, ASSETS } from "@/lib/site";
 import { useSeo } from "@/lib/seo";
+import { useAutoplayVideo } from "@/lib/useAutoplayVideo";
 
 export default function Contact() {
+  const bgVideo = useAutoplayVideo();
   const { openQuote } = useQuoteDialog();
 
   useSeo("contact");
@@ -20,7 +22,7 @@ export default function Contact() {
     <div>
       <section className="relative pt-32 pb-12 lg:pt-40 lg:pb-16 overflow-hidden bg-[var(--w-black-975)]">
         <div className="absolute inset-0 opacity-25">
-          <video className="h-full w-full object-cover cine-video" autoPlay muted loop playsInline poster={ASSETS.viperPoster}>
+          <video ref={bgVideo} className="h-full w-full object-cover cine-video" autoPlay muted loop playsInline poster={ASSETS.viperPoster}>
             <source src={ASSETS.viperVideo} type="video/mp4" />
           </video>
           <div className="absolute inset-0" style={{ background: "var(--w-hero-vignette)" }} />
