@@ -3,7 +3,8 @@ import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion
 import { ArrowRight, Star } from "lucide-react";
 import { ASSETS } from "@/lib/site";
 import { CtaPrimary, CtaWhatsApp } from "@/components/Buttons";
-import { useAutoplayVideo } from "@/lib/useAutoplayVideo";
+// Kept for when the hero goes back to video - see the commented block below.
+// import { useAutoplayVideo } from "@/lib/useAutoplayVideo";
 
 const STATS = [
   { value: "5.0", label: "Google Rating", star: true },
@@ -14,7 +15,7 @@ const STATS = [
 export const CinematicHero = () => {
   const reduce = useReducedMotion();
   const ref = useRef(null);
-  const videoRef = useAutoplayVideo();
+  // const videoRef = useAutoplayVideo();
   const { scrollY } = useScroll();
   const videoScale = useTransform(scrollY, [0, 900], [1, 1.14]);
   const contentY = useTransform(scrollY, [0, 600], [0, 90]);
@@ -30,6 +31,17 @@ export const CinematicHero = () => {
         className="absolute inset-0 will-change-transform"
         style={reduce ? {} : { scale: videoScale }}
       >
+        {/* Hero is a still for now. To go back to video: uncomment the block
+            below and the two useAutoplayVideo lines above, then delete this
+            <img>. The parallax scale on this wrapper works for either one. */}
+        <img
+          src={ASSETS.viperStill}
+          alt="Dodge Viper RT/10 in iconic red, a cinematic feature build by Wraptastic Auto Customs in Brampton, Ontario"
+          className="h-full w-full object-cover cine-video"
+          fetchPriority="high"
+          data-testid="hero-image"
+        />
+        {/*
         <video
           ref={videoRef}
           className="h-full w-full object-cover cine-video"
@@ -43,6 +55,7 @@ export const CinematicHero = () => {
         >
           <source src={ASSETS.viperVideo} type="video/mp4" />
         </video>
+        */}
       </motion.div>
 
       <div className="absolute inset-0" style={{ background: "var(--w-hero-vignette)" }} />
