@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion
 import { ArrowRight, Star } from "lucide-react";
 import { ASSETS } from "@/lib/site";
 import { CtaPrimary, CtaWhatsApp } from "@/components/Buttons";
+import { useAutoplayVideo } from "@/lib/useAutoplayVideo";
 
 const STATS = [
   { value: "5.0", label: "Google Rating", star: true },
@@ -13,6 +14,7 @@ const STATS = [
 export const CinematicHero = () => {
   const reduce = useReducedMotion();
   const ref = useRef(null);
+  const videoRef = useAutoplayVideo();
   const { scrollY } = useScroll();
   const videoScale = useTransform(scrollY, [0, 900], [1, 1.14]);
   const contentY = useTransform(scrollY, [0, 600], [0, 90]);
@@ -22,28 +24,33 @@ export const CinematicHero = () => {
     <section
       ref={ref}
       data-testid="cinematic-hero"
-      className="relative min-h-screen w-full overflow-hidden bg-[var(--w-black-950)]"
+      className="relative min-h-screen supports-[height:100svh]:min-h-[100svh] w-full overflow-hidden bg-[var(--w-black-950)]"
     >
-      <motion.video
-        className="absolute inset-0 h-full w-full object-cover cine-video will-change-transform"
+      <motion.div
+        className="absolute inset-0 will-change-transform"
         style={reduce ? {} : { scale: videoScale }}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        poster={ASSETS.viperPoster}
-        data-testid="hero-video"
       >
-        <source src={ASSETS.viperVideo} type="video/mp4" />
-      </motion.video>
+        <video
+          ref={videoRef}
+          className="h-full w-full object-cover cine-video"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster={ASSETS.viperPoster}
+          data-testid="hero-video"
+        >
+          <source src={ASSETS.viperVideo} type="video/mp4" />
+        </video>
+      </motion.div>
 
       <div className="absolute inset-0" style={{ background: "var(--w-hero-vignette)" }} />
       <div className="noise-overlay" />
 
       <motion.div
         style={reduce ? {} : { y: contentY, opacity: contentOpacity }}
-        className="relative z-10 container-w flex min-h-screen flex-col justify-end pb-28 pt-32"
+        className="relative z-10 container-w flex min-h-screen supports-[height:100svh]:min-h-[100svh] flex-col justify-end pb-28 pt-32"
       >
         <motion.div
           initial={reduce ? false : { opacity: 0, y: 30 }}
