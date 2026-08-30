@@ -34,12 +34,33 @@ export const CinematicHero = () => {
         {/* Hero is a still for now. To go back to video: uncomment the block
             below and the two useAutoplayVideo lines above, then delete this
             <img>. The parallax scale on this wrapper works for either one. */}
+        {/* The Featured Builds shot is 1406x752, so a portrait phone can only
+            show about a quarter of its width with object-cover - which lands on
+            the windshield and reads as a random crop. Instead the phone gets the
+            whole photo at its own aspect ratio, laid over a blurred, darkened
+            copy of itself: the frame fills edge to edge with no black bands and
+            the car stays intact. Desktop is wide enough to just cover. */}
+        <div className="absolute inset-0 md:hidden">
+          <img
+            src={ASSETS.viperStill}
+            alt=""
+            aria-hidden
+            className="absolute inset-0 h-full w-full object-cover scale-125 blur-2xl opacity-45"
+          />
+          <div className="absolute inset-0 bg-[rgba(5,5,6,0.35)]" />
+          <img
+            src={ASSETS.viperStill}
+            alt="Dodge Viper RT/10 in iconic red, a cinematic feature build by Wraptastic Auto Customs in Brampton, Ontario"
+            className="absolute inset-x-0 top-[17%] w-full cine-video"
+            fetchPriority="high"
+            data-testid="hero-image"
+          />
+        </div>
         <img
           src={ASSETS.viperStill}
           alt="Dodge Viper RT/10 in iconic red, a cinematic feature build by Wraptastic Auto Customs in Brampton, Ontario"
-          className="h-full w-full object-cover cine-video"
+          className="hidden md:block h-full w-full object-cover object-center cine-video"
           fetchPriority="high"
-          data-testid="hero-image"
         />
         {/*
         <video
