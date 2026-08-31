@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://wraptasticautocustoms.com/sitemap.xml
+Sitemap: https://wraptastic.ca/sitemap.xml

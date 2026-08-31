@@ -85,7 +85,7 @@ export default function Contact() {
                   <Instagram className="text-[var(--w-chrome-300)]" size={20} />
                   <div>
                     <p className="text-sm text-white font-500">Instagram</p>
-                    <p className="text-xs text-[var(--w-silver-500)]">@the.wraptastic</p>
+                    <p className="text-xs text-[var(--w-silver-500)]">@wraptasticac</p>
                   </div>
                 </a>
               </div>

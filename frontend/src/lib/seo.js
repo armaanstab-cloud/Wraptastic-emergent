@@ -11,7 +11,7 @@ import { useEffect } from "react";
 // them whole in the results page instead of truncating them.
 // ---------------------------------------------------------------------------
 
-export const SITE_URL = "https://wraptasticautocustoms.com";
+export const SITE_URL = "https://wraptastic.ca";
 
 const BASE_KEYWORDS =
   "Wraptastic Auto Customs, car wrap Brampton, vehicle wrap GTA, auto customization Brampton";

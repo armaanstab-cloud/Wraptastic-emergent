@@ -48,19 +48,13 @@ export const CinematicHero = () => {
             className="absolute inset-0 h-full w-full object-cover scale-125 blur-2xl opacity-45"
           />
           <div className="absolute inset-0 bg-[rgba(5,5,6,0.35)]" />
-          <img
-            src={ASSETS.viperStill}
-            alt="Dodge Viper RT/10 in iconic red, a cinematic feature build by Wraptastic Auto Customs in Brampton, Ontario"
-            className="absolute inset-x-0 top-[17%] w-full cine-video"
-            fetchPriority="high"
-            data-testid="hero-image"
-          />
         </div>
         <img
           src={ASSETS.viperStill}
           alt="Dodge Viper RT/10 in iconic red, a cinematic feature build by Wraptastic Auto Customs in Brampton, Ontario"
           className="hidden md:block h-full w-full object-cover object-center cine-video"
           fetchPriority="high"
+          data-testid="hero-image-desktop"
         />
         {/*
         <video
@@ -103,6 +97,17 @@ export const CinematicHero = () => {
             <span className="text-chrome block text-7xl sm:text-8xl lg:text-[9.5rem]">WRAPTASTIC</span>
             <span className="text-chrome text-chrome-red block text-5xl sm:text-6xl lg:text-8xl mt-1">AUTO CUSTOMS</span>
           </h1>
+
+          {/* Phones only. Desktop keeps the full-bleed background image; here
+              the photo sits in the flow under the heading as its own card, so
+              the headline is never laid over the car. */}
+          <img
+            src={ASSETS.viperStill}
+            alt="Dodge Viper RT/10 in iconic red, a cinematic feature build by Wraptastic Auto Customs in Brampton, Ontario"
+            className="md:hidden mt-7 w-full rounded-2xl hairline cine-video"
+            fetchPriority="high"
+            data-testid="hero-image"
+          />
 
           <p className="mt-7 text-sm sm:text-base font-semibold uppercase tracking-[0.32em] text-white/85">
             Wrap It <span className="text-[var(--w-red-glow)]">•</span> Protect It <span className="text-[var(--w-red-glow)]">•</span> Stand Out
