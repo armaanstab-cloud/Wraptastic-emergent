@@ -16,7 +16,7 @@ export const BUSINESS = {
   phoneDisplay: "(647) 482-1403",
   phoneRaw: "+16474821403",
   email: "wraptasticautocustoms@gmail.com",
-  instagramHandle: "@the.wraptastic",
+  instagramHandle: "@wraptasticac",
 };
 
 const WA_MESSAGE =
@@ -26,7 +26,7 @@ export const LINKS = {
   whatsapp: `https://wa.me/16474821403?text=${encodeURIComponent(WA_MESSAGE)}`,
   phone: "tel:+16474821403",
   email: "mailto:wraptasticautocustoms@gmail.com",
-  instagram: "https://www.instagram.com/the.wraptastic/",
+  instagram: "https://www.instagram.com/wraptasticac/",
   tiktok: "https://www.tiktok.com/@wraptasticac",
   google: "https://share.google/ThQCm7y9VpegJHy8K",
   maps: "https://www.google.com/maps/dir/?api=1&destination=Wraptastic+Auto+Customs%2C+46+Village+Lake+Crescent%2C+Brampton%2C+ON+L6S+6K6",
@@ -319,7 +319,7 @@ export const GALLERY = [
     id: "corvette-full",
     type: "image",
     src: ASSETS.corvetteFull,
-    title: "Corvette Z06",
+    title: "Corvette Eray",
     caption: "Gloss green at dusk",
     size: "tall",
   },
@@ -368,7 +368,7 @@ export const FEATURED = [
   },
   {
     id: "corvette",
-    title: "Chevrolet Corvette Z06",
+    title: "Chevrolet Corvette Eray",
     subtitle: "Gloss Green Transformation",
     desc: "An aggressive gloss green wrap that makes the Corvette lines pop. Sharp reflections, protected paint, showroom presence.",
     image: ASSETS.corvetteFull,

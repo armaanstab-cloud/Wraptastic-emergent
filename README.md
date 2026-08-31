@@ -128,12 +128,14 @@ outside the build. If this site ever moves to Pages or Netlify, copy it into
 
 ## Before you go live
 
-The domain is currently hard-coded as `wraptasticautocustoms.com` in three
-places. If you buy a different domain, update:
+The domain is hard-coded as `wraptastic.ca` in four places. If the domain ever
+changes again, update all four:
 
 - `frontend/public/index.html` - `canonical`, `og:url`, `og:image`, `twitter:image`
+  and the three URLs in the JSON-LD block
 - `frontend/public/robots.txt` - sitemap URL
-- `frontend/public/sitemap.xml` - all seven URLs
+- `frontend/public/sitemap.xml` - all eight URLs
+- `frontend/src/lib/seo.js` - `SITE_URL` (drives the per-route canonical/og:url)
 
 Then:
 - [ ] Submit the form once and confirm the email arrives at
